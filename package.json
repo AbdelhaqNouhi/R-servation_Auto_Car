@@ -1,0 +1,23 @@
+{
+  "name": "rservation-auto-car",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbdelhaqNouhi/Rservation-auto-car.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AbdelhaqNouhi/Rservation-auto-car/issues"
+  },
+  "homepage": "https://github.com/AbdelhaqNouhi/Rservation-auto-car#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^4.10.0"
+  }
+}
