@@ -1,17 +1,20 @@
 const express = require('express');
+
+// init app & middlewere
 const app = express();
+
 const mongodb = require('mongodb');
 
 const config = require('./config/db');
 const PORT = 3000;
 const client = mongodb.MongoClient;
 
-client.connect(config.DB, function (err, db) {
-    if (err) {
-        console.log('database is not connected')
+client.connect(config.db, function (err, db) {
+    if (!err) {
+        console.log('connected!!')
     }
     else {
-        console.log('connected!!')
+        console.log('database is not connected')
     }
 });
 
@@ -20,5 +23,5 @@ app.get('/', function (req, res) {
 });
 
 app.listen(PORT, function () {
-    console.log('Your node js server is running on PORT:', PORT);
+    console.log('Your app is running on PORT:', PORT);
 });

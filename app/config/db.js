@@ -1,3 +1,4 @@
+
 module.exports = {
-    DB: 'mongodb://mongo:27017/newdock'
+    db: 'mongodb://localhost:27017/Auto_car'
 }
