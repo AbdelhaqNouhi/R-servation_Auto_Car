@@ -2,6 +2,9 @@ const express = require('express');
 const mongodb = require('mongodb');
 const app = express();
 const config = require('./config/db');
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.json());
 
 // import routes
 const usersRoute = require('./router/users')
@@ -20,12 +23,6 @@ client.connect(config.db, (err, db) => {
     }
     console.log('db', db);
 });
-
-// app.get('/users', (req, res) => {
-//     db.collection('users')
-//     .find()
-//     res.json({ "hello": "world" });
-// });
 
 
 app.listen(PORT, function () {
