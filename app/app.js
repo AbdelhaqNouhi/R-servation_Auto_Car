@@ -1,27 +1,23 @@
 const express = require('express');
-const mongodb = require('mongodb');
-const app = express();
+const mongoose = require('mongoose')
 const config = require('./config/db');
-const bodyParser = require('body-parser')
-
-app.use(bodyParser.json());
-
-// import routes
-const usersRoute = require('./router/users')
-app.use('/users', usersRoute)
-
-
+// const bodyParser = require('body-parser');
+const Router = require('./router/api');
 const PORT = 3000;
-const client = mongodb.MongoClient;
 
-client.connect(config.db, (err, db) => {
+const app = express();
+
+// app.use(bodyParser.json());
+app.use('/api', Router)
+
+
+mongoose.connect(config.db, (err, db) => {
     if (!err) {
         console.log('connected!!')
     }
     else {
         console.log('database is not connected')
     }
-    console.log('db', db);
 });
 
 
