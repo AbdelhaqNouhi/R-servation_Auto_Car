@@ -1,6 +1,6 @@
 const UsersModule = require('../modules/UsersModule')
 
-exports.GetAllUsers = async (req, res, next) => {
+exports.GetAllUsers = async (req, res) => {
 
     try {
         const users = await UsersModule.find();
@@ -11,7 +11,7 @@ exports.GetAllUsers = async (req, res, next) => {
     }
 }
 
-exports.GetOneUser = async (req, res, next) => {
+exports.GetOneUser = async (req, res) => {
 
     try {
         const user = await UsersModule.findById(req.params.id);
@@ -22,11 +22,19 @@ exports.GetOneUser = async (req, res, next) => {
     }
 }
 
-exports.AddUser = async (req, res, next) => {
+exports.AddUser = async (req, res) => {
+
+    const user = new UsersModule ({
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.last_name,
+        phone: req.body.phone,
+        password: req.body.password
+    });
 
     try {
-        const user = await UsersModule.create(req.body);
-        res.status(200).json(user)
+        const data = await user.save();
+        res.status(200).json(data)
 
     } catch (err) {
         res.status(400).json({ status: "fail" })

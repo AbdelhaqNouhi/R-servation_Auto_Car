@@ -1,13 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose')
 const config = require('./config/db');
-// const bodyParser = require('body-parser');
 const Router = require('./router/api');
+const bodyParser = require ('body-parser')
+
 const PORT = 3000;
 
 const app = express();
 
-// app.use(bodyParser.json());
+app.use (express.json())
+app.use (bodyParser.json())
 app.use('/api', Router)
 
 
