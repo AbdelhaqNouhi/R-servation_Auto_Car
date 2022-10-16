@@ -1,14 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose')
 const config = require('./config/db');
-const Router = require('./router/api');
+const Router = require('./router/UserRouter');
 const bodyParser = require ('body-parser')
+const dotenv = require('dotenv').config()
 
 const PORT = 3000;
 
 const app = express();
 
-// app.use (express.json())
 app.use (bodyParser.json())
 app.use('/api', Router)
 

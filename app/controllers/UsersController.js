@@ -1,7 +1,12 @@
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
+const asyncHandler = require('express-async-handler')
+
 const UsersModule = require('../modules/UsersModule')
+const { use } = require('../router/UserRouter')
 
 
-exports.GetAllUsers = async (req, res) => {
+exports.GetAllUsers = asyncHandler (async (req, res) => {
 
     try {
         const users = await UsersModule.find();
@@ -10,36 +15,59 @@ exports.GetAllUsers = async (req, res) => {
     } catch (err) {
         res.status(400).json({status: "fail"})
     }
-}
+})
 
-exports.GetOneUser = async (req, res) => {
+exports.RegisterUser = asyncHandler (async (req, res) => {
 
-    try {
-        const user = await UsersModule.findById(req.params.id);
-        res.status(200).json(user)
+    const {first_name, last_name, email, phone, password} = req.body
 
-    } catch (err) {
-        res.status(400).json({ status: "fail" })
+    //  check if all fields exists
+    if (!first_name || !last_name || !email || !phone || !password) {
+        res.status(401)
+        throw new Error("please add all fields")
     }
-}
 
-exports.AddUser = async (req, res) => {
+    // check if user exists
+    const UserExists = await UsersModule.findOne({email})
 
-    const user = new UsersModule ({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        email: req.body.last_name,
-        phone: req.body.phone,
-        password: req.body.password
-    });
-
-    console.log(user);
-
-    try {
-        const data = await user.save();
-        res.status(200).json(data)
-
-    } catch (err) {
-        res.status(400).json({ status: "fail" })
+    if (UserExists) {
+        res.status(401).json({ status: "user already exists" })
     }
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10)
+    const HashPassword = await bcrypt.hash(password, salt)
+
+    // create User
+    const user = await UsersModule.create({
+        first_name,
+        last_name,
+        email,
+        phone,
+        password : HashPassword,
+    })
+
+    if (user) {
+        res.status(201).json({
+            _id: user.id,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            email: user.email,
+            phone: user.phone,
+            password: user.password,
+            token: GenerateToken(user._id)
+            
+        })
+    } 
+    else {
+            res.status(400).json({ status: "invalide user data" })
+    }
+})
+
+
+// Generate JWt
+const GenerateToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: '30d',
+    })
 }
