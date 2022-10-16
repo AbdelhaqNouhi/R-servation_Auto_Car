@@ -1,6 +1,7 @@
 const express = require ('express');
-const UsersController = require ('../controllers/UsersController')
 const router = express.Router();
+const UsersController = require ('../controllers/UsersController')
+const { protect } = require ('../middleware/authMiddleware')
 
 
 router.get('/GetAllUser',UsersController.GetAllUsers)
