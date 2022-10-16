@@ -1,5 +1,6 @@
 const UsersModule = require('../modules/UsersModule')
 
+
 exports.GetAllUsers = async (req, res) => {
 
     try {
@@ -31,6 +32,8 @@ exports.AddUser = async (req, res) => {
         phone: req.body.phone,
         password: req.body.password
     });
+
+    console.log(user);
 
     try {
         const data = await user.save();
