@@ -64,10 +64,26 @@ exports.RegisterUser = asyncHandler (async (req, res) => {
     }
 })
 
+exports.LoginUser = asyncHandler (async (req, res) => {
+    
+    const { email, password} = req.body
+    
+    // check for user email
+    const user = await UsersModule.findOne({ email })
+    
+    if (user && (await bcrypt.compare(password, user.password))) {
+        res.json({
+            _id: user.id,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            email: user.email,
+            phone: user.phone,
+            password: user.password,
+            token: GenerateToken(user._id)
+        })
+    }
+    else {
+        res.status(401).json({ status: 'invalide password or email'})
+    }  
+})
 
-// Generate JWt
-const GenerateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: '30d',
-    })
-}
