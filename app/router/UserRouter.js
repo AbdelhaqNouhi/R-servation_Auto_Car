@@ -10,4 +10,6 @@ router.post('/Register',UsersController.RegisterUser)
 
 router.post('/Login', UsersController.LoginUser)
 
+router.get('/GetToken', protect, UsersController.GetToken)
+
 module.exports = router;

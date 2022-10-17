@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 
 const AdminSchema = new mongoose.Schema ({
 
-    username: {
+    fuul_name: {
         type: String,
         require: [true, "please added a username"]
     },

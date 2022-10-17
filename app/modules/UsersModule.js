@@ -1,41 +1,44 @@
 
 const mongoose = require('mongoose')
+const validator = require('validator')
 
-const UserSchema = new mongoose.Schema({
+const User = mongoose.model(
+    "users",
+    new mongoose.Schema({
+        full_name: {
+            type: String,
+            required: [true, 'Please add a first name'],
+        },
 
-    first_name: {
-        type: String,
-        required: [true, 'Please add a first name']
-        // default:
-    },
+        email: {
+            type: String,
+            required: [true, 'Please add a email'],
+            trim: true,
+            lowercase: true,
+            unique: true,
+            validate(value) {
+                return validator.isEmail(value);
+            },
+        },
 
-    last_name: {
-        type: String,
-        required: [true, 'Please add a last name']
-        // default:
-    },
-
-    email: {
-        type: String,
-        required: [true, 'Please add a email'],
-        unique: true
-        // default:
-    },
-
-    phone: {
+        phone: {
         type: String,
         required: [true, 'Please add a phone number']
-        // default:
-    },
+        },
 
-    password: {
-        type: String,
-        required: [true, 'Please add a password']
-        // default:
-    },
-},
-{
-    timestamps: true
-}); 
+        password: {
+            type: String,
+            required: true,
+        },
+        // ref basically means that mongoose would store the ObjectId values
+        // and when you call populate using those ObjectIds would fetch and fill the documents for you.
+        roles: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Role",
+            },
+        ],
+    })
+);
 
-module.exports = mongoose.model('Users', UserSchema)
+module.exports = User;

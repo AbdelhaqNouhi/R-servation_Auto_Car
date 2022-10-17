@@ -87,6 +87,11 @@ exports.LoginUser = asyncHandler (async (req, res) => {
     }  
 })
 
+
+exports.GetToken = asyncHandler(async (req, res) => {
+    res.json({ msg: 'user data is here'})
+})
+
 // Generate JWt
 const GenerateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
