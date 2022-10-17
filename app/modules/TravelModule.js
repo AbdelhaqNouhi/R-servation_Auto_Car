@@ -4,47 +4,47 @@ const TravelSchema = mongoose.Schema ({
 
     from: {
         type: String,
-        require: true
+        required: [true, 'Please select from ?']
     },
 
     to: {
         type: String,
-        require: true
+        required: [true, 'Please select where to go ?']
     },
 
     departure_time: {
         type: time,
-        require: true
+        required: [true, 'Please select time ?']
     },
 
     departure_date: {
         type: Date,
-        require: true
+        required: [true, 'Please select date ?']
     },
 
     arrival_time: {
         type: Date,
-        require: true
+        required: [true, 'Please select time arrival ?']
     },
 
     arrival_date: {
         type: Date,
-        require: true
+        required: [true, 'Please select date arrival ?']
     },
 
     seat_total: {
         type: Number,
-        require: true 
+        required: [true, 'Please select seat total ?'] 
     },
 
     reserved_seat: {
         type: Number,
-        require: true
+        required: [true, 'Please select reserved_seat  ?']
     },
 
     price: {
         type: Number,
-        require: true
+        required: [true, 'Please select price ?']
     }
 })
 
