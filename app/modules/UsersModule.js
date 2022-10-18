@@ -5,6 +5,7 @@ const validator = require('validator')
 const User = mongoose.model(
     "users",
     new mongoose.Schema({
+        
         full_name: {
             type: String,
             required: [true, 'Please add a first name'],

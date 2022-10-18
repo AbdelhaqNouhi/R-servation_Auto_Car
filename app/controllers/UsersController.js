@@ -19,10 +19,10 @@ exports.GetAllUsers = asyncHandler (async (req, res) => {
 
 exports.RegisterUser = asyncHandler (async (req, res) => {
 
-    const {first_name, last_name, email, phone, password} = req.body
+    const {full_name, email, phone, password} = req.body
 
     //  check if all fields exists
-    if (!first_name || !last_name || !email || !phone || !password) {
+    if (!full_name || !email || !phone || !password) {
         res.status(401)
         throw new Error("please add all fields")
     }
@@ -40,8 +40,7 @@ exports.RegisterUser = asyncHandler (async (req, res) => {
 
     // create User
     const user = await UsersModule.create({
-        first_name,
-        last_name,
+        full_name,
         email,
         phone,
         password : HashPassword,
@@ -50,8 +49,7 @@ exports.RegisterUser = asyncHandler (async (req, res) => {
     if (user) {
         res.status(201).json({
             _id: user.id,
-            first_name: user.first_name,
-            last_name: user.last_name,
+            full_name: user.full_name,
             email: user.email,
             phone: user.phone,
             password: user.password,
@@ -74,11 +72,9 @@ exports.LoginUser = asyncHandler (async (req, res) => {
     if (user && (await bcrypt.compare(password, user.password))) {
         res.json({
             _id: user.id,
-            first_name: user.first_name,
-            last_name: user.last_name,
+            full_name: user.full_name,
             email: user.email,
             phone: user.phone,
-            password: user.password,
             token: GenerateToken(user._id)
         })
     }
