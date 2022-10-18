@@ -4,14 +4,15 @@ const Ticket = mongoose.model(
     'Ticket',
     new mongoose.Schema({
 
-        user: User,
+        user_id: {
+            type: mongoose.Types.ObjectId,
+            ref: 'User'
+        },
 
-        travel: [
-            {
-                type: mongoose.Types.ObjectId,
-                ref: 'Travel'
-            }
-        ]
+        travel_id:{
+            type: mongoose.Types.ObjectId,
+            ref: 'Travel'
+        }
     })
 )
 module.exports = Ticket

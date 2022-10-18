@@ -49,19 +49,12 @@ const Travel = mongoose.model(
             required: [true, 'Please select price ?']
         },
 
-        Ticket: [
+        Ticket_id: [
             {
                 type: mongoose.Types.ObjectId,
                 ref: 'Ticket'
             }
         ],
-
-        Admin: [
-            {
-                type: mongoose.Types.ObjectId,
-                ref: 'Admin'
-            }
-        ]
     })
 )
 
