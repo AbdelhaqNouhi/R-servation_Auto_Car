@@ -1,14 +1,17 @@
-const express = require('express');
+const express = require('express')
 const mongoose = require('mongoose')
-const config = require('./config/db');
-const Router = require('./router/UserRouter');
+const config = require('./config/db')
+const UserRouter = require('./router/UserRouter')
+const AdminRouter = require('./router/AdminRouter')
+const TicketRouter = require('./router/TicketRouter')
+const TravelRouter = require('./router/TravelRouter')
 const bodyParser = require ('body-parser')
 const dotenv = require('dotenv').config()
 
 const app = express();
 
 app.use (bodyParser.json())
-app.use('/api', Router)
+app.use('/api', UserRouter, AdminRouter, TicketRouter, TravelRouter)
 
 
 mongoose.connect(config.db, (err, db) => {

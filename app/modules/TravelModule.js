@@ -15,7 +15,7 @@ const Travel = mongoose.model(
         },
 
         departure_time: {
-            type: time,
+            type: Number,
             required: [true, 'Please select time ?']
         },
 

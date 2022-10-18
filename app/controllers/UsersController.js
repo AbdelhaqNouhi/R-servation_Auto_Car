@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 
 const UsersModule = require('../modules/UsersModule')
-const { use } = require('../router/UserRouter')
+const { user } = require('../router/UserRouter')
 
 
 exports.GetAllUsers = asyncHandler (async (req, res) => {
