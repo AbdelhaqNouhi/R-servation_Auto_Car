@@ -5,7 +5,7 @@ const validator = require('validator')
 const User = mongoose.model(
     "users",
     new mongoose.Schema({
-        
+
         full_name: {
             type: String,
             required: [true, 'Please add a first name'],
@@ -33,10 +33,10 @@ const User = mongoose.model(
         },
         // ref basically means that mongoose would store the ObjectId values
         // and when you call populate using those ObjectIds would fetch and fill the documents for you.
-        roles: [
+        Ticket: [
             {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "Role",
+                ref: "Ticket",
             },
         ],
     })

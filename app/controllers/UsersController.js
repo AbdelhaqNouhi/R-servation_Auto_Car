@@ -91,6 +91,6 @@ exports.GetToken = asyncHandler(async (req, res) => {
 // Generate JWt
 const GenerateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: '30d',
+        expiresIn: '1d',
     })
 }

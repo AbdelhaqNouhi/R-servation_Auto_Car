@@ -1,51 +1,68 @@
 const mongoose = require('mongoose')
 
-const TravelSchema = mongoose.Schema ({
+const Travel = mongoose.model(
+    'Travel',
+    new mongoose.Schema ({
 
-    from: {
-        type: String,
-        required: [true, 'Please select from ?']
-    },
+        from: {
+            type: String,
+            required: [true, 'Please select from ?']
+        },
 
-    to: {
-        type: String,
-        required: [true, 'Please select where to go ?']
-    },
+        to: {
+            type: String,
+            required: [true, 'Please select where to go ?']
+        },
 
-    departure_time: {
-        type: time,
-        required: [true, 'Please select time ?']
-    },
+        departure_time: {
+            type: time,
+            required: [true, 'Please select time ?']
+        },
 
-    departure_date: {
-        type: Date,
-        required: [true, 'Please select date ?']
-    },
+        departure_date: {
+            type: Date,
+            required: [true, 'Please select date ?']
+        },
 
-    arrival_time: {
-        type: Date,
-        required: [true, 'Please select time arrival ?']
-    },
+        arrival_time: {
+            type: Date,
+            required: [true, 'Please select time arrival ?']
+        },
 
-    arrival_date: {
-        type: Date,
-        required: [true, 'Please select date arrival ?']
-    },
+        arrival_date: {
+            type: Date,
+            required: [true, 'Please select date arrival ?']
+        },
 
-    seat_total: {
-        type: Number,
-        required: [true, 'Please select seat total ?'] 
-    },
+        seat_total: {
+            type: Number,
+            required: [true, 'Please select seat total ?'] 
+        },
 
-    reserved_seat: {
-        type: Number,
-        required: [true, 'Please select reserved_seat  ?']
-    },
+        reserved_seat: {
+            type: Number,
+            required: [true, 'Please select reserved_seat  ?']
+        },
 
-    price: {
-        type: Number,
-        required: [true, 'Please select price ?']
-    }
-})
+        price: {
+            type: Number,
+            required: [true, 'Please select price ?']
+        },
 
-module.exports = mongoose.model('Travel', TravelSchema)
+        Ticket: [
+            {
+                type: mongoose.Types.ObjectId,
+                ref: 'Ticket'
+            }
+        ],
+
+        Admin: [
+            {
+                type: mongoose.Types.ObjectId,
+                ref: 'Admin'
+            }
+        ]
+    })
+)
+
+module.exports = Travel;
