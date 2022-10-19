@@ -83,7 +83,7 @@ exports.DeleteTravel = asyncHandler(async (req, res) => {
     if (!travel) {
         res.status(401).status({ status: 'travel not found' })
     }
-
+    
     const DeletedTravel = await travel.remove()
 
     if (DeletedTravel) {
