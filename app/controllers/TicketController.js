@@ -1,6 +1,5 @@
 
 const TicketModule = require('../modules/TicketModule')
-const { ticket } = require('../router/TicketRouter')
 const asyncHandler = require('express-async-handler')
 
 exports.GetAllTicket = asyncHandler(async (req, res) => {

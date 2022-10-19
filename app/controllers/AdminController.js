@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 
 const AdminModule = require('../modules/AdminModule')
-const { admin } = require('../router/AdminRouter')
 
 
 exports.RegisterAdmin = asyncHandler(async (req, res) => {

@@ -61,33 +61,47 @@ exports.CreateTravel = asyncHandler(async (req, res) => {
 })
 
 exports.UpdateTravel = asyncHandler(async (req, res) => {
-
+    
     const travel = await TravelModule.findById(req.params.id)
-
+    
     if (!travel) {
-        res.status(401).status({ status: 'travel not found' })
+        res.status(400)
+        throw new Error('travel not found')
     }
-
+    
     const UpdatedTravel = await TravelModule.findByIdAndUpdate(req.params.id, req.body, {
         new: true
     })
-    if (UpdatedTravel) {
-        res.status(201).json(UpdatedTravel)
-    }
+
+        res.status(200).json(UpdatedTravel)
+
 })
 
 exports.DeleteTravel = asyncHandler(async (req, res) => {
 
     const travel = await TravelModule.findById(req.params.id)
-
-    if (!travel) {
-        res.status(401).status({ status: 'travel not found' })
-    }
     
-    const DeletedTravel = await travel.remove()
-
-    if (DeletedTravel) {
-        // res.status(201).status({ status: 'travel deleted successfully'})
-        res.status(201).status({ id: req.params.id})
+    if (!travel) {
+        res.status(400)
+        throw new Error('travel not found')
     }
+
+    const DeletedTravel = await TravelModule.findByIdAndUpdate(req.params.id, { $set: { isDeleted: true }})
+
+    res.status(200).status({ status: 'success'})
 })
+
+// exports.TarvelRetrieval = asyncHandler(async (req, res) => {
+
+//     const travel = await TravelModule.findById(req.params.id)
+
+//     if (!travel) {
+//         res.status(400)
+//         throw new Error('travel not found')
+//     }
+
+//     const Retrieval = await TravelModule.findByIdAndUpdate(req.params.id, { $set: { isDeleted: false } })
+
+//     res.status(200).status({ status: 'success' })
+
+// })

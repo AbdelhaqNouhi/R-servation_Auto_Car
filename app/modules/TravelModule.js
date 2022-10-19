@@ -1,4 +1,4 @@
-const { timeStamp } = require('console');
+
 const mongoose = require('mongoose')
 
 const Travel = mongoose.model(
@@ -48,6 +48,11 @@ const Travel = mongoose.model(
         price: {
             type: String,
             required: [true, 'Please select price ?']
+        },
+
+        isDeleted: {
+            type: Boolean,
+            default: null
         },
 
         Ticket_id: [
