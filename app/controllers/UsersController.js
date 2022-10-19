@@ -10,10 +10,10 @@ exports.GetAllUsers = asyncHandler (async (req, res) => {
 
     try {
         const users = await UsersModule.find();
-        res.status(200).json(users)
+        res.status(201).json(users)
 
     } catch (err) {
-        res.status(400).json({status: "fail"})
+        res.status(401).json({status: "fail"})
     }
 })
 

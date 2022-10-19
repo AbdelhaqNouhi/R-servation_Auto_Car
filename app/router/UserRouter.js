@@ -6,9 +6,9 @@ const { protect } = require ('../middleware/authMiddleware')
 
 router.get('/GetAllUser',UsersController.GetAllUsers)
 
-router.post('/Register',UsersController.RegisterUser)
+router.post('/RegisterUser',UsersController.RegisterUser)
 
-router.post('/Login', UsersController.LoginUser)
+router.post('/LoginUser', UsersController.LoginUser)
 
 router.get('/GetToken', protect,  UsersController.GetToken)
 

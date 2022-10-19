@@ -9,9 +9,9 @@ router.get('/GetOneTravel', TravelController.GetOneTravel)
 
 router.post('/CreateTravel', TravelController.CreateTravel)
 
-router.post('/UpdateTravel', TravelController.UpdateTravel)
+router.put('/UpdateTravel/:id', TravelController.UpdateTravel)
 
-router.post('/DeleteTravel', TravelController.DeleteTravel)
+router.delete('/DeleteTravel/:id', TravelController.DeleteTravel)
 
 
 module.exports = router;

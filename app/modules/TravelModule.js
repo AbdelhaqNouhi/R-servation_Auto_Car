@@ -1,3 +1,4 @@
+const { timeStamp } = require('console');
 const mongoose = require('mongoose')
 
 const Travel = mongoose.model(
@@ -15,22 +16,22 @@ const Travel = mongoose.model(
         },
 
         departure_time: {
-            type: Number,
+            type: String,
             required: [true, 'Please select time ?']
         },
 
         departure_date: {
-            type: Date,
+            type: String,
             required: [true, 'Please select date ?']
         },
 
         arrival_time: {
-            type: Date,
+            type: String,
             required: [true, 'Please select time arrival ?']
         },
 
         arrival_date: {
-            type: Date,
+            type: String,
             required: [true, 'Please select date arrival ?']
         },
 
@@ -45,7 +46,7 @@ const Travel = mongoose.model(
         },
 
         price: {
-            type: Number,
+            type: String,
             required: [true, 'Please select price ?']
         },
 
@@ -55,7 +56,11 @@ const Travel = mongoose.model(
                 ref: 'Ticket'
             }
         ],
-    })
+    },
+        {
+            timestamps: true
+        }
+    ) 
 )
 
 module.exports = Travel;

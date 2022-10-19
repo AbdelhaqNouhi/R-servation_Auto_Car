@@ -4,9 +4,8 @@ const AdminController = require('../controllers/AdminController')
 const { protect } = require('../middleware/authMiddleware')
 
 
-router.get('/Register', AdminController.RegisterAdmin)
+router.get('/RegisterAdmin', AdminController.RegisterAdmin)
 
-router.post('/Login', AdminController.LoginAdmin)
-
+router.post('/LoginAdmin', AdminController.LoginAdmin)
 
 module.exports = router;
