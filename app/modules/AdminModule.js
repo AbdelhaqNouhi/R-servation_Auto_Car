@@ -20,12 +20,12 @@ const Admin = mongoose.model(
             require: [true, "please added password"]
         },
 
-        Travel_ide: [
-            {
-                type: mongoose.Types.ObjectId,
-                ref: 'Travel'
-            }
-        ]
+        // Travel_ide: [
+        //     {
+        //         type: mongoose.Types.ObjectId,
+        //         ref: 'Travel'
+        //     }
+        // ]
     })
 );
 

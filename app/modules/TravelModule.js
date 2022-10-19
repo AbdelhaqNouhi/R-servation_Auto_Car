@@ -21,8 +21,8 @@ const Travel = mongoose.model(
         },
 
         departure_date: {
-            type: String,
-            required: [true, 'Please select date ?']
+            type: Date,
+            default: () => Date.now(),
         },
 
         arrival_time: {
@@ -31,8 +31,8 @@ const Travel = mongoose.model(
         },
 
         arrival_date: {
-            type: String,
-            required: [true, 'Please select date arrival ?']
+            type: Date,
+            default: () => Date.now(),
         },
 
         seat_total: {
