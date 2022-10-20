@@ -21,15 +21,15 @@ exports.GetOneTicket = asyncHandler(async (req, res) => {
 
 exports.CreateTicket = asyncHandler(async (req, res) => {
 
-    const { CreatedBy, Travel_id } = req.body
+    const { CreatedBy, Travel } = req.body
 
-    if ( !CreatedBy || !Travel_id ) {
+    if ( !CreatedBy || !Travel ) {
         res.status(401).status({ status: 'Please add all fields'})
     }
 
     const Ticket = await TicketModule.create ({
         CreatedBy,
-        Travel_id
+        Travel
     })
 
     if (Ticket) {

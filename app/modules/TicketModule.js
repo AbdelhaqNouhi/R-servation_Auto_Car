@@ -12,7 +12,8 @@ const Ticket = mongoose.model(
 
         Travel:{
             type: mongoose.Types.ObjectId,
-            ref: 'Travel'
+            ref: 'Travel',
+            required: true
         }
     })
 )

@@ -31,14 +31,6 @@ const User = mongoose.model(
             type: String,
             required: true,
         },
-        // ref basically means that mongoose would store the ObjectId values
-        // and when you call populate using those ObjectIds would fetch and fill the documents for you.
-        Ticket_id: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Ticket",
-            },
-        ],
     })
 );
 

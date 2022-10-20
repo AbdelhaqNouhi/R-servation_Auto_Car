@@ -5,6 +5,17 @@ const asyncHandler = require('express-async-handler')
 const AdminModule = require('../modules/AdminModule')
 
 
+exports.GetAllAdmin = asyncHandler(async (req, res) => {
+
+    try {
+        const Admin = await AdminModule.find();
+        res.status(201).status(Admin)
+
+    } catch (error) {
+        res.status(401).json({ status: "fail" })
+    }
+})
+
 exports.RegisterAdmin = asyncHandler(async (req, res) => {
 
     const { full_name, email, password } = req.body

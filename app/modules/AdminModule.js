@@ -19,13 +19,6 @@ const Admin = mongoose.model(
             type: String,
             require: [true, "please added password"]
         },
-
-        // Travel_ide: [
-        //     {
-        //         type: mongoose.Types.ObjectId,
-        //         ref: 'Travel'
-        //     }
-        // ]
     })
 );
 

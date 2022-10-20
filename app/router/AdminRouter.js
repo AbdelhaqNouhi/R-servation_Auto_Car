@@ -4,7 +4,9 @@ const AdminController = require('../controllers/AdminController')
 const { protect } = require('../middleware/authMiddleware')
 
 
-router.get('/RegisterAdmin', AdminController.RegisterAdmin)
+router.get('/GetAllAdmin', AdminController.GetAllAdmin)
+
+router.post('/RegisterAdmin', AdminController.RegisterAdmin)
 
 router.post('/LoginAdmin', AdminController.LoginAdmin)
 

@@ -52,7 +52,13 @@ const Travel = mongoose.model(
 
         isDeleted: {
             type: Boolean,
-            default: null
+            default: false
+        },
+
+        CreatedBy: {
+            type: mongoose.Types.ObjectId,
+            ref: "Admin",
+            required: true
         },
     }) 
 )
