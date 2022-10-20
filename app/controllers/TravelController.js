@@ -26,17 +26,11 @@ exports.GetOneTravel = asyncHandler(async (req, res) => {
 
 exports.CreateTravel = asyncHandler(async (req, res) => {
 
-    const { from, to, departure_time, departure_date, arrival_time, arrival_date, seat_total, reserved_seat, price, CreatedBy } = req.body
+    const { from, to, departure_time, departure_date, arrival_time, arrival_date, seats_total, reserved_seat, price, Break_point, CreatedBy } = req.body
 
-    if (!from || !to || !departure_time || !departure_date || !arrival_time || !arrival_date || !seat_total || !reserved_seat || !price || !CreatedBy) {
+    if (!from || !to || !departure_time || !arrival_time || !seats_total || !reserved_seat || !price || !CreatedBy) {
         res.status(401).json({ status: 'please add all fields' })
     }
-
-    // const TravelExists = await TravelModule.findOne(TravelModule.id)
-
-    // if (TravelExists) {
-    //     res.status(401).json({ status: "Travel already exists" })
-    // }
 
     const Travel = await TravelModule.create ({
         from,
@@ -45,9 +39,10 @@ exports.CreateTravel = asyncHandler(async (req, res) => {
         departure_date,
         arrival_time,
         arrival_date,
-        seat_total,
+        seats_total,
         reserved_seat,
         price,
+        Break_point,
         CreatedBy
     })
 
