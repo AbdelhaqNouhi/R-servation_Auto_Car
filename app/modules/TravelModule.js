@@ -21,8 +21,8 @@ const Travel = mongoose.model(
         },
 
         departure_date: {
-            type: Date,
-            default: () => Date.now(),
+            type: String,
+            // default: () => Date.now(),
         },
 
         arrival_time: {
@@ -31,8 +31,8 @@ const Travel = mongoose.model(
         },
 
         arrival_date: {
-            type: Date,
-            default: () => Date.now(),
+            type: String,
+            // default: () => Date.now(),
         },
 
         seat_total: {
@@ -54,18 +54,7 @@ const Travel = mongoose.model(
             type: Boolean,
             default: null
         },
-
-        Ticket_id: [
-            {
-                type: mongoose.Types.ObjectId,
-                ref: 'Ticket'
-            }
-        ],
-    },
-        {
-            timestamps: true
-        }
-    ) 
+    }) 
 )
 
 module.exports = Travel;

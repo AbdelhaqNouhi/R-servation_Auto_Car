@@ -48,7 +48,7 @@ exports.CreateTravel = asyncHandler(async (req, res) => {
         seat_total,
         reserved_seat,
         price,
-        ticket_id
+        Ticket_id
     })
 
     if (Travel) {

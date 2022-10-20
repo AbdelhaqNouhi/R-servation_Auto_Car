@@ -13,7 +13,6 @@ router.put('/UpdateTravel/:id', TravelController.UpdateTravel)
 
 router.delete('/DeleteTravel/:id', TravelController.DeleteTravel)
 
-// router.post('/TarvelRetrieval/:id', TravelController.TarvelRetrieval)
 
 
 module.exports = router;

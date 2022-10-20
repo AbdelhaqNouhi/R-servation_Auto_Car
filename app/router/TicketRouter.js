@@ -3,7 +3,7 @@ const router = express.Router();
 const TicketController = require('../controllers/TicketController')
 
 
-router.get('GetAllTicket', TicketController.GetAllTicket)
+router.get('/GetAllTicket', TicketController.GetAllTicket)
 
 router.get('/GetOneTicket', TicketController.GetOneTicket)
 
