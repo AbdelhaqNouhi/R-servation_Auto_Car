@@ -1,7 +1,8 @@
 
 const HomePage = () => {
     return (
-        <div className="w-full inset-0 h-full object-cover object-center mt-8 mb-24 flex justify-around flex gap-16">
+        <div className="">
+            <div className=" inset-0 h-full object-cover object-center mt-8 mb-24 flex justify-around flex gap-16">
             <div className="images">
                 <div className="absolute">
                     <img
@@ -26,7 +27,7 @@ const HomePage = () => {
                 </div>
             </div>
 
-            <div className="form flex flex-col gap-6 bg-gradient-to-r from-sky-500 to-indigo-500 p-8 text-white font-medium rounded-lg">
+            <div className="form flex flex-col gap-6 bg-gradient-to-r from-slate-900 to-slate-600 p-8 text-white font-medium rounded-lg">
                 <h1 className="font-bold text-xl">Make your holiday memorable</h1>
 
                 <div className="flex flex-col gap-6">
@@ -55,8 +56,9 @@ const HomePage = () => {
                     </div>
                 </div>
 
-                <button className="bg-gradient-to-r from-slate-900 to-slate-600 hover:from-pink-500 hover:to-yellow-500 p-2 rounded-md">Find One</button>
+                <button className="text-center bg-sky-700 hover:bg-sky-600 p-2 rounded-md">Find One</button>
             </div>
+        </div>
         </div>
     )
 }
