@@ -27,7 +27,7 @@ const HomePage = () => {
                 </div>
             </div>
 
-            <div className="form flex flex-col gap-6 bg-gradient-to-r from-slate-900 to-slate-600 p-8 text-white font-medium rounded-lg">
+            <div className=" flex flex-col gap-6 bg-gradient-to-r from-slate-900 to-slate-600 p-8 text-white font-medium rounded-lg">
                 <h1 className="font-bold text-xl">Make your holiday memorable</h1>
 
                 <div className="flex flex-col gap-6">

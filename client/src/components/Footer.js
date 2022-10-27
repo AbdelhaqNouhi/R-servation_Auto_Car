@@ -9,9 +9,9 @@ const Footer = () => {
             </div>
 
             <div className='flex gap-6'>
-                <a className='hover:bg-gray-100 py-0.5 px-2 rounded '>Home</a>
-                <a className='hover:bg-gray-200 py-0.5 px-2 rounded '>Contact</a>
-                <a className='hover:bg-gray-200 py-0.5 px-2 rounded '>About Us</a>
+                <a className='hover:bg-gray-100 py-0.5 px-2 rounded' >Home</a>
+                <a className='hover:bg-gray-200 py-0.5 px-2 rounded' >Contact</a>
+                <a className='hover:bg-gray-200 py-0.5 px-2 rounded' >About Us</a>
             </div>
 
             <div className='flex gap-4'>

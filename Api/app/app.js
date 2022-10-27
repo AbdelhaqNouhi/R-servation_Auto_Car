@@ -7,9 +7,11 @@ const TicketRouter = require('./router/TicketRouter')
 const TravelRouter = require('./router/TravelRouter')
 const bodyParser = require ('body-parser')
 const dotenv = require('dotenv').config()
+const cors = require('cors')
 
 const app = express();
 
+app.use(cors())
 app.use (bodyParser.json())
 app.use('/api', UserRouter, AdminRouter, TicketRouter, TravelRouter)
 
