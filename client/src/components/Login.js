@@ -14,11 +14,11 @@ const Login = () => {
 
         fetch('http://localhost:8000/api/LoginUser', {
             method: 'POST',
-            headers: {'Content-Type': 'applications/json'},
-            body: JSON.stringify(User)
+            body: JSON.stringify(User),
+            headers: {'Content-type': 'application/json'}
         }).then(() => {
             console.log(User);
-            // navigate('/');
+            navigate('/');
         })
     }
 
