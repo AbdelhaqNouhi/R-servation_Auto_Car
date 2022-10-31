@@ -1,26 +1,29 @@
-
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom"
-import Login from "./components/Login"
-import HomePage from "./components/HomePage";
-import Register from "./components/Register";
-import ErrorPage from "./components/ErrorPage";
+import Login from "./components/pages/Login"
+import HomePage from "./components/pages/HomePage";
+import Register from "./components/pages/Register";
+import ErrorPage from "./components/pages/ErrorPage";
+import Admin from "./components/pages/Admin";
 
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <Header title= 'Travels' />
           <Routes>
             <Route path="/" element = {<HomePage/>} />
             <Route path="/Register" element={<Register/>} />
             <Route path="/Login" element={<Login />} />
+            <Route path="/Admin" element={<Admin />} />
+
 
             <Route path="*" element={<ErrorPage />} />
           </Routes>
-        <Footer />
+      </Router>
+
+      <Router>
+        <Routes>
+        </Routes>
       </Router>
     </div>
   )

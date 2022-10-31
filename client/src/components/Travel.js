@@ -1,7 +1,19 @@
 import React from 'react'
+import { cities } from 'list-of-moroccan-cities'
+import AsyncSelect from "react-select/async";
 
 const Travel = () => {
 
+    const loadCities = (searchValue, callback) => { 
+        setTimeout(() => { 
+            const filteredCities = cities.filter((item) => 
+                item.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()
+                )
+            ); 
+            console.log("loadCities", searchValue, filteredCities);
+            callback(filteredCities);
+        }, 200);
+    };
 
     return (
 
@@ -11,15 +23,21 @@ const Travel = () => {
             <div className="flex flex-col gap-6">
                 <div className="flex flex-col gap-2">
                     <label>départure</label>
-                    <select className="text-slate-400 bg-white p-2 rounded-md">
-                        <option value="" disabled selected hidden>Select départure</option>
-                    </select>
+                    <AsyncSelect className='text-black'
+                        loadOptions={loadCities}
+                        defaultOptions={cities}
+                        isClearable
+                        // onChange={ handleChange }
+                    />
                 </div>
                 <div className="flex flex-col gap-2">
                     <label>destination</label>
-                    <select className="text-slate-400 bg-white p-2 rounded-md">
-                        <option value="" disabled selected hidden>Select destination</option>
-                    </select>
+                    <AsyncSelect className='text-black'
+                        loadOptions={loadCities}
+                        defaultOptions={cities}
+                        isClearable
+                    // onChange={ handleChange }
+                    />
                 </div>
             </div>
 
