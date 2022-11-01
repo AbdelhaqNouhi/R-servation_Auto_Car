@@ -67,7 +67,6 @@ exports.LoginUser = asyncHandler (async (req, res) => {
     
     // check for user email
     const user = await UsersModule.findOne({ email })
-    
 
     if (user && (await bcrypt.compare(password, user.password))) {
         res.json({

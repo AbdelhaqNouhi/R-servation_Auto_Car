@@ -6,12 +6,11 @@ import { useNavigate } from "react-router-dom"
 
 const Login = () => {
 
-    const lc = localStorage.getItem('id_user')
-    console.log(lc);
-
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    // const [error, setError] = useState(false)
+    const error = ''
 
     const handelSubmit = (e) => {
         e.preventDefault();
@@ -24,8 +23,11 @@ const Login = () => {
         })
         .then((res) => res.json ())
         .then((data) =>  {
-            localStorage.setItem('id_user', JSON.stringify(data))
-            navigate('/');
+            const user_id = data._id
+            if (user_id) {
+                localStorage.setItem('user_id', JSON.stringify(user_id))
+                navigate('/HomePage');
+            }
         })
         .catch((err) => {
             console.log(err.msg);
@@ -37,8 +39,16 @@ const Login = () => {
         <div>
         <Header title='Travels' />
             <div className="flex justify-center my-24">
-                <form onSubmit={handelSubmit} className="w-2/6 flex flex-col gap-6 bg-gradient-to-r from-slate-900 to-slate-600 p-8 text-white font-medium rounded-lg">
+                <form onSubmit={handelSubmit} className="w-2/4 flex flex-col gap-6 bg-gradient-to-r from-slate-900 to-slate-600 p-8 text-white font-medium rounded-lg">
                     <h1 className="font-bold text-xl">Login</h1>
+
+                    {error ? (
+                        <div className="text-red">
+                            <p>E-mail Or Password ivalide?</p>
+                        </div>
+                    ) : ''
+                    }
+
                     <div className="flex flex-col gap-3 text-white">
                         <label>E-mail</label>
                         <input type="email" placeholder="E-mail" className=" px-2 py-2 rounded text-black" required value={email} onChange={(e) => setEmail(e.target.value)}/>
