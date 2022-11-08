@@ -17,7 +17,7 @@ This solution makes use of computer hardware and appropriate software that will 
 To run tests, run the following command
 
 ```bash
-  npm run start
+  npm start
 ```
 
 ### Request methods

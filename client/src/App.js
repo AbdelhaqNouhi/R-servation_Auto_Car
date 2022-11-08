@@ -4,7 +4,7 @@ import Login from "./components/pages/Login"
 import HomePage from "./components/pages/HomePage";
 import Register from "./components/pages/Register";
 import ErrorPage from "./components/pages/ErrorPage";
-import Admin from "./components/pages/Admin";
+import Admin from "./components/Admin/Admin";
 
 
 function App() {
