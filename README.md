@@ -19,7 +19,7 @@ This solution makes use of computer hardware and appropriate software that will 
 **Database:** Mongo DB
 
 
-### How to run the project
+## How to run the project
 
 Clone the project
 
@@ -39,7 +39,7 @@ Run the project
   npm start
 ```
 
-### Endpoints
+## Endpoints
 
 | Method    | Endpoint     | Description                |
 | :-------- | :------- | :------------------------- |
