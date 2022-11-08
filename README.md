@@ -5,22 +5,41 @@
 This solution makes use of computer hardware and appropriate software that will facilitate the automatic processing of data..
 
 
-### Tech Stack
+**Server Side:** Node, Express
+
+**Client Side** React-Js, Tailwind CSS
+
+
+## Tech Stack
+
+**Client:** React, TailwindCSS
 
 **Server:** Node, Express
 
 **Database:** Mongo DB
 
 
-### Running Tests
+### How to run the project
 
-To run tests, run the following command
+Clone the project
+
+```bash
+  git clone
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Run the project
 
 ```bash
   npm start
 ```
 
-### Request methods
+### Endpoints
 
 | Method    | Endpoint     | Description                |
 | :-------- | :------- | :------------------------- |
@@ -30,4 +49,9 @@ To run tests, run the following command
 | `POST` | `http://localhost:3000/api/CreateTicket` | **Take Ticket**|
 
 
-#### Still under construction...
+## Authors
+
+- [@Abdelhaq Nouhi](https://github.com/AbdelhaqNouhi)
+
+
+#### Don't forget to give a ⭐ if you like this project.
