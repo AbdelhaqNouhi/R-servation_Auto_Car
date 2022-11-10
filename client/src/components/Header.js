@@ -17,7 +17,7 @@ const Header = ({ title }) => {
     }
     
     return (
-        <header className='container bg-white shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] py-5 flex justify-between'>
+        <header className='lg:container md:px-16 sm:px-10 px-4 bg-white shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] py-5 flex justify-between'>
             <Link to="/"><h1 className='text-black hover:text-sky-600 font-bold text-2xl'>{ title }</h1></Link>
             <div className='flex space-x-8 '>
                 {! isLogged ? (

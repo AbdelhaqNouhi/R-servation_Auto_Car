@@ -39,7 +39,7 @@ const Login = () => {
         <div>
         <Header title='Travels' />
             <div className="flex justify-center my-24">
-                <form onSubmit={handelSubmit} className="w-2/4 flex flex-col gap-6 bg-gradient-to-r from-slate-900 to-slate-600 p-8 text-white font-medium rounded-lg">
+                <form onSubmit={handelSubmit} className="w-4/5 lg:w-2/6 md:w-5/4 sm:w-2/4 flex flex-col gap-6 bg-gradient-to-r from-slate-900 to-slate-600 p-8 text-white font-medium rounded-lg">
                     <h1 className="font-bold text-xl">Login</h1>
 
                     {error ? (

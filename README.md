@@ -10,7 +10,7 @@ This solution makes use of computer hardware and appropriate software that will 
 **Client Side** React-Js, Tailwind CSS
 
 
-## Tech Stack
+## Tech Stack in
 
 **Client:** React, TailwindCSS
 

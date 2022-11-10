@@ -15,6 +15,8 @@ const Travel = () => {
         }, 200);
     };
 
+    
+
     return (
 
         <div className=" flex flex-col gap-6 bg-gradient-to-r from-slate-900 to-slate-600 p-8 text-white font-medium rounded-lg">
