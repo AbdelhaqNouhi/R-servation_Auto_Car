@@ -6,8 +6,8 @@ const HomePage = () => {
     return (
         <div className="">
             <Header title='Travels' />
-            <div className=" inset-0 h-full object-cover object-center mt-8 mb-24 flex justify-around flex gap-16">
-                <div className="images">
+            <div className="h-full mt-8 mb-24 flex md:justify-around justify-center">
+                <div className="images hidden md:block h-full">
                     <div className="absolute">
                         <img
                             className="max-w-sm rounded-2xl mt-28 "
@@ -17,19 +17,19 @@ const HomePage = () => {
                     </div>
                     <div className="relative">
                         <img
-                            className="max-w-sm rounded-2xl ml-72"
+                            className="max-w-sm rounded-2xl lg:ml-72"
                             src={require("../../assets/images/backgound.jpg")}
                             alt="wez care family"
                         />
                     </div>
                     <div className="">
                         <img
-                            className="max-w-sm rounded-2xl ml-72 mt-8"
+                            className="max-w-sm rounded-2xl lg:ml-72 mt-8"
                             src={require("../../assets/images/annie-spratt-tG822f1XzT4-unsplash.jpg")}
                             alt="wez care family"
                         />
                     </div>
-                </div>
+                </div>    
                 <Travel />
             </div>
             <Footer />
