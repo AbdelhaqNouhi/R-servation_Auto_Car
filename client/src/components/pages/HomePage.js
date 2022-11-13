@@ -1,4 +1,4 @@
-import Travel from "../Travel"
+import Travel from "../TravelForm"
 import Header from "../Header"
 import Footer from "../Footer"
 

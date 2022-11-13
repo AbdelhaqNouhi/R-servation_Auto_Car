@@ -1,8 +1,12 @@
 import React from 'react'
+import moment from 'moment';
 import { cities } from 'list-of-moroccan-cities'
 import AsyncSelect from "react-select/async";
 
 const Travel = () => {
+
+    const now = moment();
+    const today = now.format('YYYY-MM-DD');
 
     const loadCities = (searchValue, callback) => { 
         setTimeout(() => { 
@@ -46,7 +50,7 @@ const Travel = () => {
             <div className="flex flex-col gap-6">
                 <div className="flex flex-col gap-2">
                     <label>date</label>
-                    <input className="text-slate-400 bg-white p-2 rounded-md" type="date" placeholder="date" />
+                    <input className="text-slate-400 bg-white p-2 rounded-md" type="date" id="date" min={today} placeholder="date" />
                 </div>
                 <div className="flex flex-col gap-2">
                     <label>Person</label>
