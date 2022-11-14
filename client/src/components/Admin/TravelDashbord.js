@@ -7,9 +7,13 @@ import AddTravelForm from './AddTravelForm'
 
 const TravelTable = () => {
 
+    //  state of modal
+    const [showModalAdd, setShowModalAdd] = useState(false)
+    const [showModalUpdate, setShowModalUpdate] = useState(false)
+
+    // for date and get cities
     const now = moment();
     const today = now.format('YYYY-MM-DD');
-
     const loadCities = (searchValue, callback) => {
         setTimeout(() => {
             const filteredCities = cities.filter((item) =>
@@ -21,15 +25,42 @@ const TravelTable = () => {
         }, 200);
     };
 
-    const [showModalAdd, setShowModalAdd] = useState(false)
-    const [showModalUpdate, setShowModalUpdate] = useState(false)
-    const [box, setBox] = useState([])
+    const [from, setFrom] = useState('');
+    const [to, setTo] = useState('');
+    const [departure_time, setDeparture_time] = useState('');
+    const [departure_date, setDeparture_date] = useState('');
+    const [arrival_time, setArrival_time] = useState('');
+    const [arrival_date, setArrival_date] = useState('');
+    const [seats_total, setSeats_total] = useState('');
+    const [price, setPrice] = useState('');
 
+    // const [formData,setFormData]=useState({
+        
+    // })
+    const AddTravel = (e) => {
+
+        e.preventDefault();
+        const Travel = {from, to, departure_time, departure_date, arrival_time, arrival_date, seats_total, price}
+        console.log(Travel);
+
+        fetch('http://localhost:8000/api/CreateTravel', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(Travel)
+        }).then(() => {
+            // console.log(Travel);
+        })
+    }
+
+    const [box, setBox] = useState([])
     const GetAllTravel = () => {
         fetch('http://localhost:8000/api//GetAllTravel')
         .then((response) => response.json())
         .then((data) => setBox(data))
     }
+    // const test= (e)=>{
+    //     console.log(e);
+    // }
 
     useEffect(() => {
         GetAllTravel();
@@ -39,7 +70,7 @@ const TravelTable = () => {
         
         <div class="flex flex-col mt-6 p-8">
             <AddTravelForm isVisible={showModalAdd} onClose={() => setShowModalAdd(false)}>
-                <div className='flex flex-col gap-8'>
+                <form onSubmit={ AddTravel } className='flex flex-col gap-8'>
                     <h1 className="font-bold text-xl">Add A New Travel !</h1>
                     <div className="flex gap-6">
                         <div className="flex flex-col gap-2 w-64">
@@ -48,7 +79,8 @@ const TravelTable = () => {
                                 loadOptions={loadCities}
                                 defaultOptions={cities}
                                 isClearable
-                            // onChange={ handleChange }
+                                value={from.name}
+                                onChange={(e) => setFrom(e.name)}
                             />
                         </div>
                         <div className="flex flex-col gap-2 w-64">
@@ -57,6 +89,8 @@ const TravelTable = () => {
                                 loadOptions={loadCities}
                                 defaultOptions={cities}
                                 isClearable
+                                value={to.name}
+                                onChange={(e) => setTo(e.name)}
                             />
                         </div>
                     </div>
@@ -64,37 +98,37 @@ const TravelTable = () => {
                     <div className="flex gap-6">
                         <div className="flex flex-col gap-2 w-64">
                             <label>Departure Time</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="time" id="appt" name="appt" min="09:00" max="18:00" required />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="time" id="appt" name="appt"  required value={ departure_time } onChange={(e) => setDeparture_time(e.target.value)} />
                         </div>
                         <div className="flex flex-col gap-2 w-64">
                             <label>Departure Date</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="date" id="date" min={today} placeholder="Departure Date" />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="date" id="date" min={today} placeholder="Departure Date" value={departure_date} onChange={(e) => setDeparture_date(e.target.value)} />
                         </div>
                     </div>
 
                     <div className="flex gap-6">
                         <div className="flex flex-col gap-2 w-64">
                             <label>Arrival Time</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="time" id="appt" name="appt" min="09:00" max="18:00" required />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="time" id="appt" name="appt"  required value={arrival_time} onChange={(e) => setArrival_time(e.target.value)} />
                         </div>
                         <div className="flex flex-col gap-2 w-64">
                             <label>Arrival Date</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="date" id="date" min={today} placeholder="Arrival Date" />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="date" id="date" min={today} placeholder="Arrival Date" value={arrival_date} onChange={(e) => setArrival_date(e.target.value)} />
                         </div>
                     </div>
 
                     <div className="flex gap-6">
                         <div className="flex flex-col gap-2 w-64">
                             <label>Seats Total</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="number" placeholder="Seats Total" />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="number" placeholder="Seats Total" value={seats_total} onChange={(e) => setSeats_total(e.target.value)} />
                         </div>
                         <div className="flex flex-col gap-2 w-64">
                             <label>Price</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="number" placeholder="Price" />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="number" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
                         </div>
                     </div>
                     <button className="text-center w-full bg-sky-700 hover:bg-sky-600 p-2 rounded-md">Added One</button>
-                </div>
+                </form>
             </AddTravelForm>
             
             <AddTravelForm isVisible={showModalUpdate} onClose={() => setShowModalUpdate(false)}>
