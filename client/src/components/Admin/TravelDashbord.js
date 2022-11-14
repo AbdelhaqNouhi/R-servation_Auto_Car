@@ -1,8 +1,11 @@
 // import axios from 'axios';
 import React, {useState, useEffect} from 'react'
+import AddTravelForm from './AddTravelForm'
 
 const TravelTable = () => {
 
+    const [showModalAdd, setShowModalAdd] = useState(false)
+    const [showModalUpdate, setShowModalUpdate] = useState(false)
     const [box, setBox] = useState([])
 
     const GetAllTravel = () => {
@@ -18,18 +21,25 @@ const TravelTable = () => {
     return (
         
         <div class="flex flex-col mt-6 w-full p-8">
+            <AddTravelForm isVisible={showModalAdd} onClose={() => setShowModalAdd(false)}>
+                <h1>gggggggggggggg</h1>
+            </AddTravelForm>
+            
+            <AddTravelForm isVisible={showModalUpdate} onClose={() => setShowModalUpdate(false)}>
+                    <h1>hhhhhhhhhhhhhhh</h1>
+            </AddTravelForm>
             <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 ">
                 <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
                     <div className='flex justify-between px-8 py-4 bg-white items-center text-center'>
                         <h1 className='font-bold'>Lists travel</h1>
-                        <button className='text-center bg-sky-600 text-white py-1.5 px-2 rounded font-bold w-32'> Add Travel </button>
+                        <button onClick={() => setShowModalAdd(true)} className='text-center bg-sky-600 text-white py-1.5 px-2 rounded font-bold w-32'> Add Travel </button>
                     </div>
                     <table class="min-w-full">
                         <thead>
                             <tr>
-                                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200">
+                                {/* <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200">
                                     _id
-                                </th>
+                                </th> */}
                                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200">
                                     From
                                 </th>
@@ -59,7 +69,7 @@ const TravelTable = () => {
                         <tbody class="bg-white">
                         {box && box.length > 0 && box.map((boxObj, index ) => (
                             <tr>
-                                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                                {/* <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="ml-4">
                                             <div class="text-sm leading-5 text-gray-500">
@@ -67,7 +77,7 @@ const TravelTable = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </td>
+                                </td> */}
                                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                                     <div class="text-sm leading-5 text-gray-900">
                                         {boxObj.from}
@@ -104,7 +114,7 @@ const TravelTable = () => {
                                     <div class="flex justify-around">
                                         <span class="text-yellow-500 flex justify-center">
 
-                                            <form method="POST">
+                                            <form>
                                                 <button class="mx-1 px-2 rounded-md" >
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +130,7 @@ const TravelTable = () => {
                                                     </svg>
                                                 </button>
                                                 
-                                                <button class="mx-1 px-2 rounded-md" >
+                                                <button onClick={() => setShowModalUpdate(true)} class="mx-1 px-2 rounded-md" >
                                                     <svg id="Layer_1" data-name="Layer 1" 
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         class="h-4 w-4 text-green-700" 

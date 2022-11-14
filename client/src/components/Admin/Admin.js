@@ -1,8 +1,7 @@
 import React from 'react'
 import NavBar from './NavBar'
 import NavItems from './NavItems'
-import TravelTable from './TravelTable'
-// import UsersTable from './UsersTable'
+import TravelTable from './TravelDashbord'
 
 const Admin = () => {
     return (
@@ -12,7 +11,6 @@ const Admin = () => {
                 <NavItems />
                 <div className='flex justify-center w-full '>
                     <TravelTable />
-                    {/* <UsersTable /> */}
                 </div>
             </div>
         </div>

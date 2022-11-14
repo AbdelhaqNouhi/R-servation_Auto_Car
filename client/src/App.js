@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom"
-import { useState, useEffect } from "react";
 import Login from "./components/pages/Login"
 import HomePage from "./components/pages/HomePage";
 import Register from "./components/pages/Register";
 import ErrorPage from "./components/pages/ErrorPage";
 import Admin from "./components/Admin/Admin";
+import TravelTable from "./components/Admin/TravelDashbord";
+import UsersTable from "./components/Admin/UserDashbord";
 
 
 function App() {
@@ -17,15 +18,13 @@ function App() {
             <Route path="/" element = {<Login />} />
             <Route path="/HomePage" element={<HomePage />} />
             <Route path="/Register" element={<Register/>} />
+
             <Route path="/Admin" element={<Admin />} />
+            <Route path="/TravelDashbord" element={<TravelTable />} />
+            <Route path="/UserDashbord" element={<UsersTable />} />
 
             <Route path="*" element={<ErrorPage />} />
           </Routes>
-      </Router>
-
-      <Router>
-        <Routes>
-        </Routes>
       </Router>
     </div>
   )
