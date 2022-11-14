@@ -1,10 +1,26 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
 const UsersTable = () => {
+
+    const [box, setBox] = useState([])
+
+    const GetAllUser = () => {
+        fetch('http://localhost:8000/api/GetAllUser')
+        .then((res) => res.json())
+        .then((data) => setBox(data))
+    }
+
+    useEffect(() => {
+        GetAllUser();
+    }, [])
+
     return (
         <div class="flex flex-col mt-6 w-full p-8">
             <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 ">
                 <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+                    <div className='flex justify-between px-8 py-4 bg-white items-center text-center'>
+                        <h1 className='font-bold'>Lists U sers</h1>
+                    </div>
                     <table class="min-w-full">
                         <thead>
                             <tr>
@@ -26,6 +42,8 @@ const UsersTable = () => {
                             </tr>
                         </thead>
                         <tbody class="bg-white">
+                        {box && box.length > 0 && box.map((boxobj, index) => (
+                            
                             <tr>
                                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                                     <div class="flex items-center">
@@ -37,25 +55,25 @@ const UsersTable = () => {
                                             <div class="text-sm font-medium leading-5 text-gray-900">
                                             </div>
                                             <div class="text-sm leading-5 text-gray-500">
-                                                eeeeeeeeeeeeeee
+                                                {boxobj.full_name}
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                                     <div class="text-sm leading-5 text-gray-900">
-                                        rrrrrrrrrrrrr
+                                        {boxobj._id}
                                     </div>
                                 </td>
 
                                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                                     <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-yellow-100 rounded-full">
-                                        eeeeeeeeeeeeee
+                                        {boxobj.email}
                                     </span>
                                 </td>
 
                                 <td class="px-6 py-4 text-sm leading-5 text-gray-500 border-b border-gray-200 whitespace-nowrap">
-                                    fffffffffffffffff
+                                    {boxobj.phone}
                                 </td>
 
                                 <td class="px-6 py-4 text-sm font-medium leading-5 text-right border-b border-gray-200 whitespace-nowrap">
@@ -82,6 +100,7 @@ const UsersTable = () => {
                                     </div>
                                 </td>
                             </tr>
+                        ))}
                         </tbody>
                     </table>
                 </div>

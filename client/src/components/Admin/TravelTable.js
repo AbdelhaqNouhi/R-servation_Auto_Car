@@ -1,14 +1,29 @@
-import React from 'react'
+// import axios from 'axios';
+import React, {useState, useEffect} from 'react'
 
 const TravelTable = () => {
+
+    const [box, setBox] = useState([])
+
+    const GetAllTravel = () => {
+        fetch('http://localhost:8000/api//GetAllTravel')
+        .then((response) => response.json())
+        .then((data) => setBox(data))
+    }
+
+    useEffect(() => {
+        GetAllTravel();
+    },[])
+    
     return (
+        
         <div class="flex flex-col mt-6 w-full p-8">
             <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 ">
                 <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
-                        <div>
-                            <h1 className='text-bold'>Lists travel</h1>
-                            <button className='text-center bg-sky-600 text-white py-1.5 px-2 rounded'> Add Travel </button>
-                        </div>
+                    <div className='flex justify-between px-8 py-4 bg-white items-center text-center'>
+                        <h1 className='font-bold'>Lists travel</h1>
+                        <button className='text-center bg-sky-600 text-white py-1.5 px-2 rounded font-bold w-32'> Add Travel </button>
+                    </div>
                     <table class="min-w-full">
                         <thead>
                             <tr>
@@ -42,46 +57,47 @@ const TravelTable = () => {
                             </tr>
                         </thead>
                         <tbody class="bg-white">
+                        {box && box.length > 0 && box.map((boxObj, index ) => (
                             <tr>
                                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="ml-4">
                                             <div class="text-sm leading-5 text-gray-500">
-                                                1
+                                                {boxObj._id}
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                                     <div class="text-sm leading-5 text-gray-900">
-                                        agadir
+                                        {boxObj.from}
                                     </div>
                                 </td>
 
                                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                                     <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-yellow-100 rounded-full">
-                                        casablanca
+                                        {boxObj.to}
                                     </span>
                                 </td>
 
                                 <td class="px-6 py-4 text-sm leading-5 text-gray-500 border-b border-gray-200 whitespace-nowrap">
-                                    12/22/33 at 23:00
+                                    {boxObj.departure_date} at {boxObj.departure_time}
                                 </td>
 
                                 <td class="px-6 py-4 text-sm leading-5 text-gray-500 border-b border-gray-200 whitespace-nowrap">
-                                    12/22/33 at 23:00
+                                    {boxObj.arrival_date} at {boxObj.arrival_time}
                                 </td>
 
                                 <td class="px-6 py-4 text-sm leading-5 text-gray-500 border-b border-gray-200 whitespace-nowrap">
-                                    50
+                                    {boxObj.seats_total}
                                 </td>
 
                                 <td class="px-6 py-4 text-sm leading-5 text-gray-500 border-b border-gray-200 whitespace-nowrap">
-                                    33
+                                    {boxObj.reserved_seat}
                                 </td>
 
                                 <td class="px-6 py-4 text-sm leading-5 text-gray-500 border-b border-gray-200 whitespace-nowrap">
-                                    safi, aljadida
+                                    {boxObj.Break_point}
                                 </td>
 
                                 <td class="px-6 py-4 text-sm font-medium leading-5 text-right border-b border-gray-200 whitespace-nowrap">
@@ -123,6 +139,7 @@ const TravelTable = () => {
                                     </div>
                                 </td>
                             </tr>
+                        ))}
                         </tbody>
                     </table>
                 </div>

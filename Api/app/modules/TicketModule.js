@@ -4,6 +4,11 @@ const Ticket = mongoose.model(
     'Ticket',
     new mongoose.Schema({
 
+        price: {
+            type: String,
+            required: [true, 'Please select price ?']
+        },
+
         CreatedBy: {
             type: mongoose.Types.ObjectId,
             ref: 'User',

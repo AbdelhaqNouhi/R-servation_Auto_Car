@@ -37,7 +37,8 @@ const Travel = mongoose.model(
 
         seats_total: {
             type: Number,
-            required: [true, 'Please select seat total ?'] 
+            required: [true, 'Please select seat total ?'], 
+            default: 50
         },
 
         reserved_seat: {
@@ -45,14 +46,9 @@ const Travel = mongoose.model(
             required: [true, 'Please select reserved_seat  ?']
         },
 
-        price: {
-            type: String,
-            required: [true, 'Please select price ?']
-        },
-
         Break_point: {
-            type: String,
-            default: "agadir, casa..."
+            type: [String],
+            default: ["agadir", "casa"]
         },
 
         CreatedBy: {

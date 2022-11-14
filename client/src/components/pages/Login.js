@@ -9,15 +9,13 @@ const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // const [error, setError] = useState(false)
-    const error = ''
 
     const handelSubmit = (e) => {
         e.preventDefault();
         const User ={email, password}
 
         fetch('http://localhost:8000/api/LoginUser', {
-            method: 'POST',
+            method: 'POST', 
             body: JSON.stringify(User),
             headers: {'Content-type': 'application/json'}
         })
