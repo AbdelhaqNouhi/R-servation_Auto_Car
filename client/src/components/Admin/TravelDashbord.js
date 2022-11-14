@@ -1,8 +1,25 @@
 // import axios from 'axios';
 import React, {useState, useEffect} from 'react'
+import moment from 'moment';
+import { cities } from 'list-of-moroccan-cities'
+import AsyncSelect from "react-select/async";
 import AddTravelForm from './AddTravelForm'
 
 const TravelTable = () => {
+
+    const now = moment();
+    const today = now.format('YYYY-MM-DD');
+
+    const loadCities = (searchValue, callback) => {
+        setTimeout(() => {
+            const filteredCities = cities.filter((item) =>
+                item.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()
+                )
+            );
+            console.log("loadCities", searchValue, filteredCities);
+            callback(filteredCities);
+        }, 200);
+    };
 
     const [showModalAdd, setShowModalAdd] = useState(false)
     const [showModalUpdate, setShowModalUpdate] = useState(false)
@@ -20,9 +37,64 @@ const TravelTable = () => {
     
     return (
         
-        <div class="flex flex-col mt-6 w-full p-8">
+        <div class="flex flex-col mt-6 p-8">
             <AddTravelForm isVisible={showModalAdd} onClose={() => setShowModalAdd(false)}>
-                <h1>gggggggggggggg</h1>
+                <div className='flex flex-col gap-8'>
+                    <h1 className="font-bold text-xl">Add A New Travel !</h1>
+                    <div className="flex gap-6">
+                        <div className="flex flex-col gap-2 w-64">
+                            <label>From</label>
+                            <AsyncSelect className='text-black'
+                                loadOptions={loadCities}
+                                defaultOptions={cities}
+                                isClearable
+                            // onChange={ handleChange }
+                            />
+                        </div>
+                        <div className="flex flex-col gap-2 w-64">
+                            <label>To</label>
+                            <AsyncSelect className='text-black'
+                                loadOptions={loadCities}
+                                defaultOptions={cities}
+                                isClearable
+                            />
+                        </div>
+                    </div>
+
+                    <div className="flex gap-6">
+                        <div className="flex flex-col gap-2 w-64">
+                            <label>Departure Time</label>
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="time" id="appt" name="appt" min="09:00" max="18:00" required />
+                        </div>
+                        <div className="flex flex-col gap-2 w-64">
+                            <label>Departure Date</label>
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="date" id="date" min={today} placeholder="Departure Date" />
+                        </div>
+                    </div>
+
+                    <div className="flex gap-6">
+                        <div className="flex flex-col gap-2 w-64">
+                            <label>Arrival Time</label>
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="time" id="appt" name="appt" min="09:00" max="18:00" required />
+                        </div>
+                        <div className="flex flex-col gap-2 w-64">
+                            <label>Arrival Date</label>
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="date" id="date" min={today} placeholder="Arrival Date" />
+                        </div>
+                    </div>
+
+                    <div className="flex gap-6">
+                        <div className="flex flex-col gap-2 w-64">
+                            <label>Seats Total</label>
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="number" placeholder="Seats Total" />
+                        </div>
+                        <div className="flex flex-col gap-2 w-64">
+                            <label>Price</label>
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="number" placeholder="Price" />
+                        </div>
+                    </div>
+                    <button className="text-center w-full bg-sky-700 hover:bg-sky-600 p-2 rounded-md">Added One</button>
+                </div>
             </AddTravelForm>
             
             <AddTravelForm isVisible={showModalUpdate} onClose={() => setShowModalUpdate(false)}>
@@ -114,7 +186,7 @@ const TravelTable = () => {
                                     <div class="flex justify-around">
                                         <span class="text-yellow-500 flex justify-center">
 
-                                            <form>
+                                            {/* <form> */}
                                                 <button class="mx-1 px-2 rounded-md" >
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +216,7 @@ const TravelTable = () => {
                                                         />
                                                         </svg>
                                                 </button>
-                                            </form>
+                                            {/* </form> */}
                                         </span>
                                     </div>
                                 </td>
