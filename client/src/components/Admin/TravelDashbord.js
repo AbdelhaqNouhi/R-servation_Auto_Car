@@ -58,9 +58,6 @@ const TravelTable = () => {
         .then((response) => response.json())
         .then((data) => setBox(data))
     }
-    // const test= (e)=>{
-    //     console.log(e);
-    // }
 
     useEffect(() => {
         GetAllTravel();
@@ -68,7 +65,7 @@ const TravelTable = () => {
     
     return (
         
-        <div class="flex flex-col mt-6 p-8">
+        <div class="flex flex-col mt-6 w-full p-8">
             <AddTravelForm isVisible={showModalAdd} onClose={() => setShowModalAdd(false)}>
                 <form onSubmit={ AddTravel } className='flex flex-col gap-8'>
                     <h1 className="font-bold text-xl">Add A New Travel !</h1>
@@ -162,11 +159,14 @@ const TravelTable = () => {
                                     seats_total
                                 </th>
                                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200">
+                                    Price
+                                </th>
+                                {/* <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200">
                                     reserved_seat
-                                </th>
-                                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200">
+                                </th> */}
+                                {/* <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200">
                                     Break_point
-                                </th>
+                                </th> */}
                                 <th class="px-6 py-3 bg-gray-100 border-b border-gray-200">
                                     More
                                 </th>
@@ -209,12 +209,16 @@ const TravelTable = () => {
                                 </td>
 
                                 <td class="px-6 py-4 text-sm leading-5 text-gray-500 border-b border-gray-200 whitespace-nowrap">
-                                    {boxObj.reserved_seat}
+                                    {boxObj.price}
                                 </td>
 
-                                <td class="px-6 py-4 text-sm leading-5 text-gray-500 border-b border-gray-200 whitespace-nowrap">
+                                {/* <td class="px-6 py-4 text-sm leading-5 text-gray-500 border-b border-gray-200 whitespace-nowrap">
+                                    {boxObj.reserved_seat}
+                                </td> */}
+
+                                {/* <td class="px-6 py-4 text-sm leading-5 text-gray-500 border-b border-gray-200 whitespace-nowrap">
                                     {boxObj.Break_point}
-                                </td>
+                                </td> */}
 
                                 <td class="px-6 py-4 text-sm font-medium leading-5 text-right border-b border-gray-200 whitespace-nowrap">
                                     <div class="flex justify-around">
