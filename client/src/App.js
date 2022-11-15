@@ -6,6 +6,7 @@ import ErrorPage from "./components/pages/ErrorPage";
 import Admin from "./components/Admin/Admin";
 import TravelTable from "./components/Admin/TravelDashbord";
 import UsersTable from "./components/Admin/UserDashbord";
+import LoginAdmin from "./components/Admin/LoginAdmin";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path="/Admin" element={<Admin />} />
             <Route path="/TravelDashbord" element={<TravelTable />} />
             <Route path="/UserDashbord" element={<UsersTable />} />
+            <Route path="/LoginAdmin" element={<LoginAdmin />} />
 
             <Route path="*" element={<ErrorPage />} />
           </Routes>

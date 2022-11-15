@@ -11,6 +11,7 @@ exports.GetAllAdmin = asyncHandler(async (req, res) => {
         const Admin = await AdminModule.find();
         res.status(201).status(Admin)
 
+        
     } catch (error) {
         res.status(401).json({ status: "fail" })
     }

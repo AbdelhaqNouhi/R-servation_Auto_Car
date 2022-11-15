@@ -3,22 +3,27 @@ import Header from "../Header"
 import Footer from "../Footer"
 import { useNavigate } from "react-router-dom"
 
-
 const Login = () => {
 
-    const navigate = useNavigate();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    // const [error, setError] = useState(false)
     const error = ''
+    const navigate = useNavigate();
 
-    const handelSubmit = (e) => {
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    })
+
+    const handleChange = (e) => {
+        setFormData(e.target.value)
+    }
+    // const [error, setError] = useState(false)
+
+    const handelSubmit = async (e) => {
         e.preventDefault();
-        const User ={email, password}
 
-        fetch('http://localhost:8000/api/LoginUser', {
+        await fetch('http://localhost:8000/api/LoginUser', {
             method: 'POST', 
-            body: JSON.stringify(User),
+            body: JSON.stringify(formData),
             headers: {'Content-type': 'application/json'}
         })
         .then((res) => res.json ())
@@ -51,11 +56,11 @@ const Login = () => {
 
                     <div className="flex flex-col gap-3 text-white">
                         <label>E-mail</label>
-                        <input type="email" placeholder="E-mail" className=" px-2 py-2 rounded text-black" required value={email} onChange={(e) => setEmail(e.target.value)}/>
+                        <input type="email" placeholder="E-mail" className=" px-2 py-2 rounded text-black" required value={formData.email} onChange={handleChange}/>
                     </div>
                     <div className="flex flex-col gap-3 text-white">
                         <label>Password</label>
-                        <input type="password" placeholder="Password" className=" px-2 py-2 rounded text-black" required value={password} onChange={(e) => setPassword(e.target.value)}/>
+                        <input type="password" placeholder="Password" className=" px-2 py-2 rounded text-black" required value={formData.password} onChange={handleChange}/>
                     </div>
 
                     <button className="bg-sky-700 hover:bg-sky-600 p-2 rounded-md">Login</button>
