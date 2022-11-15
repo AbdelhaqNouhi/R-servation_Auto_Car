@@ -1,11 +1,14 @@
 // import axios from 'axios';
 import React, {useState, useEffect} from 'react'
+import { useNavigate } from "react-router-dom"
 import moment from 'moment';
 import { cities } from 'list-of-moroccan-cities'
 import AsyncSelect from "react-select/async";
 import AddTravelForm from './AddTravelForm'
 
 const TravelTable = () => {
+    const navigate = useNavigate();
+
 
     //  state of modal
     const [showModalAdd, setShowModalAdd] = useState(false)
@@ -14,6 +17,7 @@ const TravelTable = () => {
     // for date and get cities
     const now = moment();
     const today = now.format('YYYY-MM-DD');
+
     const loadCities = (searchValue, callback) => {
         setTimeout(() => {
             const filteredCities = cities.filter((item) =>
@@ -38,7 +42,6 @@ const TravelTable = () => {
         
     // })
     const AddTravel = (e) => {
-
         e.preventDefault();
         const Travel = {from, to, departure_time, departure_date, arrival_time, arrival_date, seats_total, price}
         console.log(Travel);
@@ -48,15 +51,43 @@ const TravelTable = () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(Travel)
         }).then(() => {
-            // console.log(Travel);
+            navigate('/Admin');
         })
     }
 
     const [box, setBox] = useState([])
+
     const GetAllTravel = () => {
-        fetch('http://localhost:8000/api//GetAllTravel')
+        fetch('http://localhost:8000/api//GetAllTravel/', {
+            method: 'GET',
+            headers: { "Content-Type": "application/json" }
+        })
         .then((response) => response.json())
         .then((data) => setBox(data))
+    }
+
+    const UpdateTravel = (id) => {
+        console.log(id);
+        
+    }
+
+    const DeleteTravel = (id) => {
+        console.log(id);
+
+        fetch(`http://localhost:8000/api/DeleteTravel/` + id, {
+            method: 'DELETE',
+            headers: { "Content-Type": "application/json" }
+        })
+        .then((response) => response.json())
+        .then(data => {
+            if (data.msg === 'success') {
+                navigate('/Admin');
+                GetAllTravel();
+            }
+            else {
+                console.log('error');
+            }
+        })
     }
 
     useEffect(() => {
@@ -129,7 +160,65 @@ const TravelTable = () => {
             </AddTravelForm>
             
             <AddTravelForm isVisible={showModalUpdate} onClose={() => setShowModalUpdate(false)}>
-                    <h1>hhhhhhhhhhhhhhh</h1>
+                <form onSubmit={UpdateTravel} className='flex flex-col gap-8'>
+                    <h1 className="font-bold text-xl">Add A New Travel !</h1>
+                    <div className="flex gap-6">
+                        <div className="flex flex-col gap-2 w-64">
+                            <label>From</label>
+                            <AsyncSelect className='text-black'
+                                loadOptions={loadCities}
+                                defaultOptions={cities}
+                                isClearable
+                                value={from.name}
+                                onChange={(e) => setFrom(e.name)}
+                            />
+                        </div>
+                        <div className="flex flex-col gap-2 w-64">
+                            <label>To</label>
+                            <AsyncSelect className='text-black'
+                                loadOptions={loadCities}
+                                defaultOptions={cities}
+                                isClearable
+                                value={to.name}
+                                onChange={(e) => setTo(e.name)}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="flex gap-6">
+                        <div className="flex flex-col gap-2 w-64">
+                            <label>Departure Time</label>
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="time" id="appt" name="appt" required value={departure_time} onChange={(e) => setDeparture_time(e.target.value)} />
+                        </div>
+                        <div className="flex flex-col gap-2 w-64">
+                            <label>Departure Date</label>
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="date" id="date" min={today} placeholder="Departure Date" value={departure_date} onChange={(e) => setDeparture_date(e.target.value)} />
+                        </div>
+                    </div>
+
+                    <div className="flex gap-6">
+                        <div className="flex flex-col gap-2 w-64">
+                            <label>Arrival Time</label>
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="time" id="appt" name="appt" required value={arrival_time} onChange={(e) => setArrival_time(e.target.value)} />
+                        </div>
+                        <div className="flex flex-col gap-2 w-64">
+                            <label>Arrival Date</label>
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="date" id="date" min={today} placeholder="Arrival Date" value={arrival_date} onChange={(e) => setArrival_date(e.target.value)} />
+                        </div>
+                    </div>
+
+                    <div className="flex gap-6">
+                        <div className="flex flex-col gap-2 w-64">
+                            <label>Seats Total</label>
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="number" placeholder="Seats Total" value={seats_total} onChange={(e) => setSeats_total(e.target.value)} />
+                        </div>
+                        <div className="flex flex-col gap-2 w-64">
+                            <label>Price</label>
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="number" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
+                        </div>
+                    </div>
+                    <button className="text-center w-full bg-sky-700 hover:bg-sky-600 p-2 rounded-md">Added One</button>
+                </form>
             </AddTravelForm>
             <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 ">
                 <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
@@ -225,7 +314,7 @@ const TravelTable = () => {
                                         <span class="text-yellow-500 flex justify-center">
 
                                             {/* <form> */}
-                                                <button class="mx-1 px-2 rounded-md" >
+                                                <button onClick={() => DeleteTravel (boxObj._id)} class="mx-1 px-2 rounded-md" >
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         class="h-5 w-5 text-red-700"
@@ -240,7 +329,7 @@ const TravelTable = () => {
                                                     </svg>
                                                 </button>
                                                 
-                                                <button onClick={() => setShowModalUpdate(true)} class="mx-1 px-2 rounded-md" >
+                                                <button onClick={() => setShowModalUpdate(true) || UpdateTravel(boxObj._id)} class="mx-1 px-2 rounded-md" >
                                                     <svg id="Layer_1" data-name="Layer 1" 
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         class="h-4 w-4 text-green-700" 
@@ -252,7 +341,7 @@ const TravelTable = () => {
                                                             d="M111.9,61.57a5.36,5.36,0,0,1,10.71,0A61.3,61.3,0,0,1,17.54,104.48v12.35a5.36,5.36,0,0,1-10.72,0V89.31A5.36,5.36,0,0,1,12.18,84H40a5.36,5.36,0,1,1,0,10.71H23a50.6,50.6,0,0,0,88.87-33.1ZM106.6,5.36a5.36,5.36,0,1,1,10.71,0V33.14A5.36,5.36,0,0,1,112,38.49H84.44a5.36,5.36,0,1,1,0-10.71H99A50.6,50.6,0,0,0,10.71,61.57,5.36,5.36,0,1,1,0,61.57,61.31,61.31,0,0,1,91.07,8,61.83,61.83,0,0,1,106.6,20.27V5.36Z"
                                                             clip-rule="evenodd"
                                                         />
-                                                        </svg>
+                                                    </svg>
                                                 </button>
                                             {/* </form> */}
                                         </span>

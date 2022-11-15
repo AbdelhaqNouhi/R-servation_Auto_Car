@@ -78,7 +78,7 @@ exports.DeleteTravel = asyncHandler(async (req, res) => {
         throw new Error('travel not found')
     }
 
-    const DeletedTravel = await TravelModule.findByIdAndUpdate(req.params.id, { $set: { isDeleted: true }})
+    const DeletedTravel = await TravelModule.findByIdAndDelete(req.params.id, { $set: { isDeleted: true }})
 
     res.status(200).status({ status: 'success'})
 })
