@@ -13,10 +13,10 @@ exports.GetAllTravel = asyncHandler (async (req, res) => {
     
 })
 
-exports.GetOneTravel = asyncHandler(async (req, res) => { 
-
+exports.GetTravelById = asyncHandler(async (req, res) => { 
+    
     try {
-        const travel = await TravelModule.findOne(TravelModule.id)
+        const travel = await TravelModule.findById(req.params.id)
         res.status(201).json(travel)
     } catch (error) {
         res.status(401).json({ status: 'undefined travel'})
@@ -77,7 +77,6 @@ exports.DeleteTravel = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('travel not found')
     }
-
     const DeletedTravel = await TravelModule.findByIdAndDelete(req.params.id, { $set: { isDeleted: true }})
 
     res.status(200).status({ status: 'success'})

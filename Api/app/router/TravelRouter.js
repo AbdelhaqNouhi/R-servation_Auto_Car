@@ -5,7 +5,7 @@ const TravelController = require('../controllers/TravelController')
 
 router.get('/GetAllTravel', TravelController.GetAllTravel)
 
-router.get('/GetOneTravel', TravelController.GetOneTravel)
+router.post('/GetTravelById/:id', TravelController.GetTravelById)
 
 router.post('/CreateTravel', TravelController.CreateTravel)
 

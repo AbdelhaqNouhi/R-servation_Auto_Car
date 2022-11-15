@@ -1,23 +1,19 @@
 // import axios from 'axios';
 import React, {useState, useEffect} from 'react'
-import { useNavigate } from "react-router-dom"
 import moment from 'moment';
 import { cities } from 'list-of-moroccan-cities'
 import AsyncSelect from "react-select/async";
 import AddTravelForm from './AddTravelForm'
 
 const TravelTable = () => {
-    const navigate = useNavigate();
 
-
-    //  state of modal
     const [showModalAdd, setShowModalAdd] = useState(false)
     const [showModalUpdate, setShowModalUpdate] = useState(false)
 
     // for date and get cities
     const now = moment();
     const today = now.format('YYYY-MM-DD');
-
+    
     const loadCities = (searchValue, callback) => {
         setTimeout(() => {
             const filteredCities = cities.filter((item) =>
@@ -29,36 +25,40 @@ const TravelTable = () => {
         }, 200);
     };
 
-    const [from, setFrom] = useState('');
-    const [to, setTo] = useState('');
-    const [departure_time, setDeparture_time] = useState('');
-    const [departure_date, setDeparture_date] = useState('');
-    const [arrival_time, setArrival_time] = useState('');
-    const [arrival_date, setArrival_date] = useState('');
-    const [seats_total, setSeats_total] = useState('');
-    const [price, setPrice] = useState('');
+    const [formData, setFormData] = useState({
+        id: '',
+        from: '',
+        to: '',
+        departure_time: '',
+        departure_date: '',
+        arrival_time: '',
+        arrival_date: '',
+        seats_total: '',
+        price: '',
+    })
+    // console.log(formData);
+    
 
-    // const [formData,setFormData]=useState({
-        
-    // })
-    const AddTravel = (e) => {
+    const handleChange = (e) => {
+        setFormData(e.target.value)
+    }
+    
+    const AddTravel = async (e) => {
         e.preventDefault();
-        const Travel = {from, to, departure_time, departure_date, arrival_time, arrival_date, seats_total, price}
-        console.log(Travel);
 
-        fetch('http://localhost:8000/api/CreateTravel', {
+        await fetch('http://localhost:8000/api/CreateTravel', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(Travel)
+            body: JSON.stringify(formData)
         }).then(() => {
-            navigate('/Admin');
+            // console.log(Travel);
         })
     }
 
     const [box, setBox] = useState([])
 
-    const GetAllTravel = () => {
-        fetch('http://localhost:8000/api//GetAllTravel/', {
+    const GetAllTravel = async () => {
+        await fetch('http://localhost:8000/api//GetAllTravel/', {
             method: 'GET',
             headers: { "Content-Type": "application/json" }
         })
@@ -66,23 +66,55 @@ const TravelTable = () => {
         .then((data) => setBox(data))
     }
 
-    const UpdateTravel = (id) => {
-        console.log(id);
-        
+
+    const GetTravelById = async (id) => {
+        // console.log(id);
+        await fetch(`http://localhost:8000/api//GetTravelById/` + id, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" }
+        })
+        .then((response) => response.json())
+        .then(data => {
+            setFormData ({
+                id: data._id,
+                from: data.from,
+                to: data.to,
+                departure_time: data.departure_time,
+                departure_date: data.departure_date,
+                arrival_time: data.departure_time,
+                arrival_date: data.arrival_date,
+                seats_total: data.seats_total,
+                price: data.price
+            })
+        })
+        setTimeout(() => {
+            console.log(formData)
+        }, 1000);
     }
 
-    const DeleteTravel = (id) => {
+    const UpdateTravel = async (id) => {
         console.log(id);
 
-        fetch(`http://localhost:8000/api/DeleteTravel/` + id, {
+        await fetch(`http://localhost:8000/api/UpdateTravel/` + id, {
+            method: 'PUT',
+            headers: { "Content-Type": "application/json" }
+        })
+        .then((response) => response.json())
+        .then(data => {
+            
+        })
+    }
+
+    const DeleteTravel =  async (id) => {
+
+        await fetch(`http://localhost:8000/api/DeleteTravel` + id, {
             method: 'DELETE',
             headers: { "Content-Type": "application/json" }
         })
         .then((response) => response.json())
         .then(data => {
             if (data.msg === 'success') {
-                navigate('/Admin');
-                GetAllTravel();
+                console.log(data);
             }
             else {
                 console.log('error');
@@ -107,8 +139,8 @@ const TravelTable = () => {
                                 loadOptions={loadCities}
                                 defaultOptions={cities}
                                 isClearable
-                                value={from.name}
-                                onChange={(e) => setFrom(e.name)}
+                                value={formData.from}
+                                onChange={(e) => setFormData(e.name)}
                             />
                         </div>
                         <div className="flex flex-col gap-2 w-64">
@@ -117,8 +149,8 @@ const TravelTable = () => {
                                 loadOptions={loadCities}
                                 defaultOptions={cities}
                                 isClearable
-                                value={to.name}
-                                onChange={(e) => setTo(e.name)}
+                                value={formData.to}
+                                onChange={(e) => setFormData(e.name)}
                             />
                         </div>
                     </div>
@@ -126,33 +158,33 @@ const TravelTable = () => {
                     <div className="flex gap-6">
                         <div className="flex flex-col gap-2 w-64">
                             <label>Departure Time</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="time" id="appt" name="appt"  required value={ departure_time } onChange={(e) => setDeparture_time(e.target.value)} />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="time" id="appt" name="appt"  required value={formData.departure_time} onChange={handleChange} />
                         </div>
                         <div className="flex flex-col gap-2 w-64">
                             <label>Departure Date</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="date" id="date" min={today} placeholder="Departure Date" value={departure_date} onChange={(e) => setDeparture_date(e.target.value)} />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="date" id="date" min={today} placeholder="Departure Date" value={formData.departure_date} onChange={handleChange} />
                         </div>
                     </div>
 
                     <div className="flex gap-6">
                         <div className="flex flex-col gap-2 w-64">
                             <label>Arrival Time</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="time" id="appt" name="appt"  required value={arrival_time} onChange={(e) => setArrival_time(e.target.value)} />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="time" id="appt" name="appt" required value={formData.arrival_time} onChange={handleChange} />
                         </div>
                         <div className="flex flex-col gap-2 w-64">
                             <label>Arrival Date</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="date" id="date" min={today} placeholder="Arrival Date" value={arrival_date} onChange={(e) => setArrival_date(e.target.value)} />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="date" id="date" min={today} placeholder="Arrival Date" value={formData.arrival_date} onChange={handleChange} />
                         </div>
                     </div>
 
                     <div className="flex gap-6">
                         <div className="flex flex-col gap-2 w-64">
                             <label>Seats Total</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="number" placeholder="Seats Total" value={seats_total} onChange={(e) => setSeats_total(e.target.value)} />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="number" placeholder="Seats Total" value={formData.seats_total} onChange={handleChange} />
                         </div>
                         <div className="flex flex-col gap-2 w-64">
                             <label>Price</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="number" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="number" placeholder="Price" value={formData.price} onChange={handleChange} />
                         </div>
                     </div>
                     <button className="text-center w-full bg-sky-700 hover:bg-sky-600 p-2 rounded-md">Added One</button>
@@ -160,7 +192,7 @@ const TravelTable = () => {
             </AddTravelForm>
             
             <AddTravelForm isVisible={showModalUpdate} onClose={() => setShowModalUpdate(false)}>
-                <form onSubmit={UpdateTravel} className='flex flex-col gap-8'>
+                <div className='flex flex-col gap-8'>
                     <h1 className="font-bold text-xl">Add A New Travel !</h1>
                     <div className="flex gap-6">
                         <div className="flex flex-col gap-2 w-64">
@@ -169,8 +201,8 @@ const TravelTable = () => {
                                 loadOptions={loadCities}
                                 defaultOptions={cities}
                                 isClearable
-                                value={from.name}
-                                onChange={(e) => setFrom(e.name)}
+                                value={formData.from}
+                                onChange={(e) => setFormData(e.name)}
                             />
                         </div>
                         <div className="flex flex-col gap-2 w-64">
@@ -179,8 +211,9 @@ const TravelTable = () => {
                                 loadOptions={loadCities}
                                 defaultOptions={cities}
                                 isClearable
-                                value={to.name}
-                                onChange={(e) => setTo(e.name)}
+                                name='from'
+                                value={formData.to}
+                                onChange={(e) => setFormData(e.name)}
                             />
                         </div>
                     </div>
@@ -188,37 +221,37 @@ const TravelTable = () => {
                     <div className="flex gap-6">
                         <div className="flex flex-col gap-2 w-64">
                             <label>Departure Time</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="time" id="appt" name="appt" required value={departure_time} onChange={(e) => setDeparture_time(e.target.value)} />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="time" id="appt" name="appt" required value={formData.departure_time} onChange={handleChange} />
                         </div>
                         <div className="flex flex-col gap-2 w-64">
                             <label>Departure Date</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="date" id="date" min={today} placeholder="Departure Date" value={departure_date} onChange={(e) => setDeparture_date(e.target.value)} />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="date" id="date" min={today} placeholder="Departure Date" value={formData.departure_date} onChange={handleChange} />
                         </div>
                     </div>
 
                     <div className="flex gap-6">
                         <div className="flex flex-col gap-2 w-64">
                             <label>Arrival Time</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="time" id="appt" name="appt" required value={arrival_time} onChange={(e) => setArrival_time(e.target.value)} />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="time" id="appt" name="appt" required value={formData.arrival_time} onChange={handleChange} />
                         </div>
                         <div className="flex flex-col gap-2 w-64">
                             <label>Arrival Date</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="date" id="date" min={today} placeholder="Arrival Date" value={arrival_date} onChange={(e) => setArrival_date(e.target.value)} />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="date" id="date" min={today} placeholder="Arrival Date" value={formData.arrival_date} onChange={handleChange} />
                         </div>
                     </div>
 
                     <div className="flex gap-6">
                         <div className="flex flex-col gap-2 w-64">
                             <label>Seats Total</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="number" placeholder="Seats Total" value={seats_total} onChange={(e) => setSeats_total(e.target.value)} />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="number" placeholder="Seats Total" value={formData.seats_total} onChange={handleChange} />
                         </div>
                         <div className="flex flex-col gap-2 w-64">
                             <label>Price</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="number" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="number" placeholder="Price" value={formData.price} onChange={handleChange} />
                         </div>
                     </div>
-                    <button className="text-center w-full bg-sky-700 hover:bg-sky-600 p-2 rounded-md">Added One</button>
-                </form>
+                    <button onSubmit={UpdateTravel(formData.id)} className="text-center w-full bg-sky-700 hover:bg-sky-600 p-2 rounded-md">Update Travel</button>
+                </div>
             </AddTravelForm>
             <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 ">
                 <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
@@ -329,7 +362,7 @@ const TravelTable = () => {
                                                     </svg>
                                                 </button>
                                                 
-                                                <button onClick={() => setShowModalUpdate(true) || UpdateTravel(boxObj._id)} class="mx-1 px-2 rounded-md" >
+                                                <button onClick={() => setShowModalUpdate(true) || GetTravelById(boxObj._id)} class="mx-1 px-2 rounded-md" >
                                                     <svg id="Layer_1" data-name="Layer 1" 
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         class="h-4 w-4 text-green-700" 
