@@ -2,6 +2,19 @@ const asyncHandler = require('express-async-handler')
 
 const TravelModule = require('../modules/TravelModule')
 
+
+exports.SearchTravel = asyncHandler (async (req, res) => {
+
+        const Search = await TravelModule.find({ from: req.params.from, to: req.params.to, departure_date: req.params.date });
+
+        if(!Search) {
+            res.status(401)
+            throw new Error ('this travel not found !')
+        }
+        
+        res.status(201).json(Search)
+})
+
 exports.GetAllTravel = asyncHandler (async (req, res) => {
 
     try {

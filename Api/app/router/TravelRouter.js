@@ -3,6 +3,8 @@ const router = express.Router();
 const TravelController = require('../controllers/TravelController')
 
 
+router.get('/ShearchTravel/:from/:to/:date', TravelController.SearchTravel)
+
 router.get('/GetAllTravel', TravelController.GetAllTravel)
 
 router.post('/GetTravelById/:id', TravelController.GetTravelById)
