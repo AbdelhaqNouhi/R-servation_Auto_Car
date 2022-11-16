@@ -5,7 +5,7 @@ const TravelModule = require('../modules/TravelModule')
 exports.GetAllTravel = asyncHandler (async (req, res) => {
 
     try {
-        const travel = await TravelModule.find().populate("CreatedBy");
+        const travel = await TravelModule.find();
         res.status(201).json(travel)
     } catch (error) {
         res.status(401).json({ status: 'fail'})
@@ -26,9 +26,9 @@ exports.GetTravelById = asyncHandler(async (req, res) => {
 
 exports.CreateTravel = asyncHandler(async (req, res) => {
 
-    const { from, to, departure_time, departure_date, arrival_time, arrival_date, price, CreatedBy } = req.body
+    const { from, to, departure_time, departure_date, arrival_time, arrival_date, seats_total, price } = req.body
 
-    if (!from || !to || !departure_time || !departure_date || !arrival_time || !arrival_date || !price || !CreatedBy) {
+    if (!from || !to || !departure_time || !departure_date || !arrival_time || !arrival_date || !seats_total || !price) {
         res.status(401).json({ status: 'please add all fields' })
     }
 
@@ -39,8 +39,8 @@ exports.CreateTravel = asyncHandler(async (req, res) => {
         departure_date,
         arrival_time,
         arrival_date,
-        price,
-        CreatedBy
+        seats_total,
+        price
     })
 
     if (Travel) {

@@ -56,11 +56,11 @@ const Travel = mongoose.model(
         //     default: ["agadir", "casa"]
         // },
 
-        CreatedBy: {
-            type: mongoose.Types.ObjectId,
-                ref: "Admin",
-                required: true
-        },
+        // CreatedBy: {
+        //     type: mongoose.Types.ObjectId,
+        //         ref: "Admin",
+        //         required: true
+        // },
 
         isDeleted: {
             type: Boolean,
