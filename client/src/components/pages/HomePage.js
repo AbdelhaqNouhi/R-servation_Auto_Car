@@ -6,6 +6,10 @@ import { useState } from "react"
 
 const HomePage = () => {
     const [data , setData] = useState([])
+    const [start, setStart] = useState([])
+    const [end, setEnd] = useState([])
+    const [date, setDate] = useState([])
+
     return (
         <div className="">
             <Header title='Travels' />
@@ -33,9 +37,9 @@ const HomePage = () => {
                         />
                     </div>
                 </div>    
-                <Travel setData={setData}/>
+                <Travel setData={setData} setStart={setStart} setEnd={setEnd} setDate={setDate} />
             </div>
-            <ShowTravel data={data} />
+            <ShowTravel data={data} start={start} end={end} date={date} />
             <Footer />
         </div>
     )

@@ -3,7 +3,7 @@ import moment from 'moment';
 import { cities } from 'list-of-moroccan-cities'
 import AsyncSelect from "react-select/async";
 
-const Travel = ({setData}) => {
+const Travel = ({ setData, setStart, setEnd, setDate }) => {
 
     const now = moment();
     const today = now.format('YYYY-MM-DD');
@@ -36,6 +36,9 @@ const Travel = ({setData}) => {
             }else {
                 console.log('this travel not found');
             }
+            setStart(from);
+            setEnd(to);
+            setDate(departure_date);
         })
     }
 
