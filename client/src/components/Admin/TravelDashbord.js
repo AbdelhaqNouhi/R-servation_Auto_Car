@@ -68,8 +68,8 @@ const TravelTable = () => {
 
     const [box, setBox] = useState([])
 
-    const GetAllTravel = () => {
-        fetch('http://localhost:8000/api//GetAllTravel')
+    const GetAllTravel = async () => {
+        await fetch('http://localhost:8000/api//GetAllTravel')
             .then((response) => response.json())
             .then((data) => setBox(data))
     }
@@ -208,7 +208,6 @@ const TravelTable = () => {
                                 loadOptions={loadCities}
                                 defaultOptions={cities}
                                 isClearable
-                                name='from'
                                 value={formData.to}
                                 onChange={(e) => setFormData(e.name)}
                             />
@@ -218,7 +217,7 @@ const TravelTable = () => {
                     <div className="flex gap-6">
                         <div className="flex flex-col gap-2 w-64">
                             <label>Departure Time</label>
-                            <input className="text-slate-400 bg-white p-2 rounded-md" type="text" id="appt" name="appt" required value={formData.departure_time} onChange={handleChange} />
+                            <input className="text-slate-400 bg-white p-2 rounded-md" type="text" id="time" name="appt" required value={formData.departure_time} onChange={handleChange} />
                         </div>
                         <div className="flex flex-col gap-2 w-64">
                             <label>Departure Date</label>

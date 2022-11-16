@@ -1,8 +1,11 @@
 import Travel from "../TravelForm"
 import Header from "../Header"
 import Footer from "../Footer"
+import ShowTravel from "../ShowTravel"
+import { useState } from "react"
 
 const HomePage = () => {
+    const [data , setData] = useState([])
     return (
         <div className="">
             <Header title='Travels' />
@@ -30,8 +33,9 @@ const HomePage = () => {
                         />
                     </div>
                 </div>    
-                <Travel />
+                <Travel setData={setData}/>
             </div>
+            <ShowTravel data={data} />
             <Footer />
         </div>
     )
