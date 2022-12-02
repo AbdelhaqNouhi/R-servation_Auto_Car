@@ -94,18 +94,3 @@ exports.DeleteTravel = asyncHandler(async (req, res) => {
 
     res.status(200).status({ status: 'success'})
 })
-
-// exports.TarvelRetrieval = asyncHandler(async (req, res) => {
-
-//     const travel = await TravelModule.findById(req.params.id)
-
-//     if (!travel) {
-//         res.status(400)
-//         throw new Error('travel not found')
-//     }
-
-//     const Retrieval = await TravelModule.findByIdAndUpdate(req.params.id, { $set: { isDeleted: false } })
-
-//     res.status(200).status({ status: 'success' })
-
-// })

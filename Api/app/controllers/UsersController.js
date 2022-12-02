@@ -74,8 +74,12 @@ exports.LoginUser = asyncHandler (async (req, res) => {
             full_name: user.full_name,
             email: user.email,
             phone: user.phone,
-            token: GenerateToken(user._id)
+            // token: GenerateToken(user)
         })
+
+        const GenerateToken = (id) => {
+            
+        }
     }
     else {
         res.status(401).json({ status: 'invalide password or email'})
@@ -86,10 +90,3 @@ exports.LoginUser = asyncHandler (async (req, res) => {
 exports.GetToken = asyncHandler(async (req, res) => {
     res.json({ msg: 'user data is here'})
 })
-
-// Generate JWt
-const GenerateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: '1d',
-    })
-}
