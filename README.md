@@ -1,6 +1,6 @@
 ## Rservation_Auto_Car
 
-**Supratours**, a subsidiary of the ONCF group, which provides continuations by coach for cities not served by train, needs to set up a computer system by creating a database for managing customer reservations.
+**WeGo**, connects unserved cities with reliable coach services. To simplify your travel experience, we're introducing an advanced computer system with automated data processing for efficient reservation management.
 
 This solution makes use of computer hardware and appropriate software that will facilitate the automatic processing of data..
 
